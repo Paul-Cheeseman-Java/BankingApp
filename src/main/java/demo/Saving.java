@@ -7,11 +7,11 @@ import java.time.LocalDate;
 public class Saving extends Account {
 
 	private static double dailyDepositLimit = 50.0;
-	private static double dailyWithdrawlLimit = 50.0;
+	private static double dailyWithdrawalLimit = 50.0;
 	
 	private LocalDate lastTxnDate = LocalDate.now();
 	private double dailyDepositTotal;
-	private double dailywithdrawlTotal;
+	private double dailyWithdrawalTotal;
 	
 	
 	public Saving(String name, double balance, double overdraft) {
@@ -27,11 +27,11 @@ public class Saving extends Account {
 	@Override
 	public boolean removeFunds(double amount) {
 		if (fundsAvailable(amount)) {
-			if (addToDailyWithdrawlTotal(amount)) {
+			if (addToDailyWithdrawalTotal(amount)) {
 				this.debitBalance(amount);
 				return true;
 			} else {
-				System.out.println(getDailyWithDrawlLimitHitMsg(amount));
+				System.out.println(getDailyWithdrawalLimitHitMsg(amount));
 				return false;
 			}
 		} 
@@ -86,10 +86,10 @@ public class Saving extends Account {
 	}
 	
 	
-	public boolean withinDailyWithdrawlLimit(double amount) {
+	public boolean withinDailyWithdrawalLimit(double amount) {
 		BigDecimal amountBigDec = new BigDecimal(amount);
-		BigDecimal dailyWithdrawlLimitBigDec = new BigDecimal(Saving.dailyWithdrawlLimit);
-		if (amountBigDec.compareTo(dailyWithdrawlLimitBigDec) < 1) {
+		BigDecimal dailyWithdrawalLimitBigDec = new BigDecimal(Saving.dailyWithdrawalLimit);
+		if (amountBigDec.compareTo(dailyWithdrawalLimitBigDec) < 1) {
 			return true;
 		} else {
 			return false;
@@ -97,11 +97,10 @@ public class Saving extends Account {
 	}
 	
 	
-	public boolean addToDailyWithdrawlTotal(double amount){
+	public boolean addToDailyWithdrawalTotal(double amount){
 		if (this.getLastTxnDate().isEqual(LocalDate.now())) {
-			System.out.println("Trigger 1");
-			if (this.withinDailyWithdrawlLimit(this.getDailyWithdrawlTotal() + amount)) {
-				this.setDailyWithdrawlTotal(this.getDailyWithdrawlTotal() + amount);
+			if (this.withinDailyWithdrawalLimit(this.getDailyWithdrawalTotal() + amount)) {
+				this.setDailyWithdrawalTotal(this.getDailyWithdrawalTotal() + amount);
 				return true;
 			}
 			else {
@@ -109,15 +108,14 @@ public class Saving extends Account {
 			}
 		}
 		else {
-			System.out.println("Trigger 2");
 			this.setLastTxnDate(LocalDate.now());
-			this.setDailyWithdrawlTotal(amount);
+			this.setDailyWithdrawalTotal(amount);
 			return true;
 		}
 	}
 
-	public String getDailyWithDrawlLimitHitMsg(double amount) {
-		return "Unable to withdraw £" + amount + " because it will breach the daily withdrawl limit";
+	public String getDailyWithdrawalLimitHitMsg(double amount) {
+		return "Unable to withdraw £" + amount + " because it will breach the daily Withdrawal limit";
 	}
 
 	public String getDailyDepositHitMsg(double amount) {
@@ -133,12 +131,12 @@ public class Saving extends Account {
 		Saving.dailyDepositLimit = dailyDepositLimit;
 	}
 
-	public static double getDailyWithdrawlLimit() {
-		return dailyWithdrawlLimit;
+	public static double getDailyWithdrawalLimit() {
+		return dailyWithdrawalLimit;
 	}
 
-	public static void setDailyWithdrawlLimit(double dailywithdrawlLimit) {
-		Saving.dailyWithdrawlLimit = dailywithdrawlLimit;
+	public static void setDailyWithdrawalLimit(double dailyWithdrawalLimit) {
+		Saving.dailyWithdrawalLimit = dailyWithdrawalLimit;
 	}
 
 	public LocalDate getLastTxnDate() {
@@ -157,12 +155,12 @@ public class Saving extends Account {
 		this.dailyDepositTotal = dailyDepositTotal;
 	}
 
-	public double getDailyWithdrawlTotal() {
-		return dailywithdrawlTotal;
+	public double getDailyWithdrawalTotal() {
+		return dailyWithdrawalTotal;
 	}
 
-	public void setDailyWithdrawlTotal(double dailywithdrawlTotal) {
-		this.dailywithdrawlTotal = dailywithdrawlTotal;
+	public void setDailyWithdrawalTotal(double dailyWithdrawalTotal) {
+		this.dailyWithdrawalTotal = dailyWithdrawalTotal;
 	}
 	
 

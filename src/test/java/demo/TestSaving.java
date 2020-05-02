@@ -121,12 +121,101 @@ class TestSaving {
 	}
 	
 	
+	@Test
+	void testwithinDailyWithdrawalLimitWithinLimit() {
+		//Only testing true/false, doesn't change balance
+		Saving test = new Saving("Test", 100.0);
+		assertTrue(test.withinDailyWithdrawalLimit(40.0));
+	}
+	
+	@Test
+	void testwithinDailyWithdrawalLimitOverLimit() {
+		//Only testing true/false, doesn't change balance
+		Saving test = new Saving("Test", 100.0);
+		assertFalse(test.withinDailyWithdrawalLimit(60.0));
+	}
 	
 	
+	@Test
+	void testwithinDailyDepositLimitWithinLimit() {
+		//Only testing true/false, doesn't change balance
+		Saving test = new Saving("Test", 100.0);
+		assertTrue(test.withinDailyDepositLimit(40.0));
+	}
+	
+	@Test
+	void testwithinDailyDepositlLimitOverLimit() {
+		//Only testing true/false, doesn't change balance
+		Saving test = new Saving("Test", 100.0);
+		assertFalse(test.withinDailyDepositLimit(60.0));
+	}
+	
+	@Test
+	void testBooleanAddToDailyWithdrawalTotalWithinLimit() {
+		Saving test = new Saving("Test", 100.0);
+		assertTrue(test.addToDailyWithdrawalTotal(40));
+	}
+	
+	@Test
+	void testBooleanAddToDailyWithdrawalTotalBreachingLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.removeFunds(30.0);	//Will add £30 to withdrawal total
+		assertFalse(test.addToDailyWithdrawalTotal(40));
+	}
 	
 	
+	@Test
+	void testValueAddToDailyWithdrawalTotalWithinLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.addToDailyWithdrawalTotal(40.0);
+		assertEquals(test.getDailyWithdrawalTotal(), 40.0);
+	}
+	
+	@Test
+	void testValueAddToDailyWithdrawalTotalBreachingLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.addToDailyWithdrawalTotal(70.0);
+		assertEquals(test.getDailyWithdrawalTotal(), 0.0);
+	}
+	
+
+	@Test
+	void testBooleanAddToDailyDepositTotalWithinLimit() {
+		Saving test = new Saving("Test", 100.0);
+		assertTrue(test.addToDailyDepositTotal(40));
+	}
+	
+	@Test
+	void testBooleanAddToDailyDepositTotalBreachingLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.addFunds(30.0);	//Will add £30 to deposit total
+		assertFalse(test.addToDailyDepositTotal(40));
+	}
 	
 	
+	@Test
+	void testValueAddToDailyDepositTotalWithinLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.addToDailyDepositTotal(40.0);
+		assertEquals(test.getDailyDepositTotal(), 40.0);
+	}
 	
+	@Test
+	void testValueAddToDailyDepositTotalBreachingLimit() {
+		Saving test = new Saving("Test", 100.0);
+		test.addToDailyDepositTotal(70.0);
+		assertEquals(test.getDailyDepositTotal(), 0.0);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 }
