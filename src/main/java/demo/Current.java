@@ -25,7 +25,7 @@ public class Current extends Account {
 
 	@Override
 	public boolean fundsAvailable(double amount) {
-		return (this.getBalance() + getOverdraft()) > amount;
+		return (this.getBalance() + getOverdraft()) >= amount;
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class Current extends Account {
 			return true;
 		} 
 		else {
-			System.out.println(this.getInsufficientFundsMsg());
+			System.out.println(getInsufficientFundsMsg());
 			return false;
 		}
 	}
@@ -48,11 +48,6 @@ public class Current extends Account {
 	private String getInOverdraftMsg() {
 		return "You are now in your overdraft on your " +getAccountName()+ " current account with £ " + getAvailableFunds() + " remaining";
 	}
-	
-	private String getInsufficientFundsMsg() {
-		return "You don't have sufficent funds in your " +getAccountName()+ " current account";
-	}
-
 	
 	private String getReducedOverdraftMsg() {
 		return "Your overdraft for your " +getAccountName()+ " current account has been reduced to " +getOverdraft();

@@ -9,7 +9,7 @@ public class Account implements Comparable<Account> {
 	private double balance;
 	private ArrayList<Txn> txns;
 	
-	private static int accountNumberGenerator = 0;
+	private static int accountNumberGenerator = 1;
 	
 
 	public static String getFormattedAccountNumber(int accountNum){
@@ -30,7 +30,7 @@ public class Account implements Comparable<Account> {
 	}
 	
 	public boolean fundsAvailable(double amount) {
-		return this.balance > amount;
+		return this.balance >= amount;
 	}
 	
 		
@@ -52,8 +52,8 @@ public class Account implements Comparable<Account> {
 	}
 	
 
-	private String getInsufficientFundsMsg() {
-		return "You don't have sufficent funds in your " +name+ " current account";
+	public String getInsufficientFundsMsg() {
+		return "You don't have sufficent funds in your " +name+ " account";
 	}
 
 	
@@ -69,7 +69,7 @@ public class Account implements Comparable<Account> {
 		txns.add(new Txn(amount, "Debit"));
 		System.out.println(this.getDebitMadeMsg(amount));
 	} 
-	
+
 	private String getDebitMadeMsg(double amount) {
 		return "You have removed  £" +amount+ " from your " +name+ " account";
 	}
