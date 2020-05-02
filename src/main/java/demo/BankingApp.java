@@ -8,26 +8,16 @@ public class BankingApp {
 
 		//Should all general msgs be static?
 		//Have I been consistent with 'this'?
+		//Do all comparisons need to be changed to Big Int?
 
-		Saving test = new Saving("Testacc", 20.00);
-		System.out.println("Last txn date" +test.getLastTxnDate());
 
-		test.removeFunds(5.0);	
-		System.out.println("Balance: " +test.getBalance());
-		test.removeFunds(15.0);	
-		System.out.println("Balance: " +test.getBalance());
-		System.out.println("Removing that 1p");
-		test.removeFunds(0.01);	
-		System.out.println("Balance: " +test.getBalance());
+		Credit test  = new Credit("Credit", 100);
+		System.out.println("Balance: £" + test.getBalance());
+		System.out.println("Credit Limit: £" + test.getCreditLimit());
+		
+		test.removeFunds(100.1);
 
-		System.out.println("Setting last date to previous day");
-		test.setLastTxnDate(test.getLastTxnDate().minusDays(1));
-		System.out.println("Last txn date" +test.getLastTxnDate());
-		System.out.println("Removing that 1p (Shouldn't be able to)");
-		test.removeFunds(00.01);	
-		System.out.println("-------------------------");
-		test.addFunds(10.0);	
-		test.removeFunds(00.01);
+		
 	}
 	
 

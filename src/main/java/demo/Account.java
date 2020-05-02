@@ -16,6 +16,12 @@ public class Account implements Comparable<Account> {
 		return String.format("%08d", accountNum);
 	}
 
+	public Account(String name) {
+		accountNumberGenerator += 1;
+		setAccountName(name);
+		setTransactions(new ArrayList<Txn>());
+		setAccountNumber(accountNumberGenerator);
+	}
 	
 	public Account(String name, double balance) {
 		accountNumberGenerator += 1;

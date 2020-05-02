@@ -115,7 +115,7 @@ public class Saving extends Account {
 	}
 
 	public String getDailyWithdrawalLimitHitMsg(double amount) {
-		return "Unable to withdraw £" + amount + " because it will breach the daily Withdrawal limit";
+		return "Unable to withdraw £" + amount + " because it will breach the daily withdrawal limit";
 	}
 
 	public String getDailyDepositHitMsg(double amount) {
