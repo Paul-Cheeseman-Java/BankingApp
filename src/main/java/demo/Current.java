@@ -15,6 +15,7 @@ public class Current extends Account implements Transferable {
 	}
 	
 	
+		
 	public boolean transferCreditTo(Transferable txfrObj, double amount) {
 		if (fundsAvailable(amount)) {
 			if (txfrObj.recieveTransferedCredit(amount)) {

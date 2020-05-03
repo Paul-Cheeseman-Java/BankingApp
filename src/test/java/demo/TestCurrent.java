@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class TestCurrent {
 
-	/*
+
 	@Test
 	void testCompareTo() {
 		 ArrayList<Account> ordered = new ArrayList<Account>(Arrays.asList(new Current ("aTest", 0.0), new Current ("bTest", 0.0), new Current ("cTest", 0.0)));
@@ -162,6 +162,5 @@ class TestCurrent {
 		testFunds.increaseOverdraftLimit(5.0);
 		assertFalse(testFunds.reduceOverdraftLimit(6.0));
 	}
-	*/
 
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class TestSaving {
 
-	/*
+
 	@Test
 	void testBooleanRemoveFundsWithinDailyLimitAndAvailableFunds() {
 		Saving test = new Saving("Test", 10.0);
@@ -202,5 +202,4 @@ class TestSaving {
 		assertEquals(test.getDailyDepositTotal(), 0.0);
 	}
 
-	*/
 }

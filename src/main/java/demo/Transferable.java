@@ -7,6 +7,5 @@ public interface Transferable {
 	
 	public boolean recieveTransferedCredit(double amount);
 	public boolean recieveTransferedDebit(double amount);
-	
-	
+
 }

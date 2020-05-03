@@ -16,6 +16,10 @@ public class Credit extends Account implements Transferable {
 		super(name);
 	}
 
+	public void addTransaction(double amount, String type, int accountNumber) {}
+	public void listTransactions() {}
+	
+	
 	public boolean transferCreditTo(Transferable txfrObj, double amount) {
 		if (this.fundsAvailable(amount)) {
 			if (txfrObj.recieveTransferedCredit(amount)) {
@@ -43,11 +47,11 @@ public class Credit extends Account implements Transferable {
 	
 	
 	public boolean recieveTransferedCredit(double amount) {
-		return this.addFunds(amount);
+		return this.removeFunds(amount);
 	}
 	
 	public boolean recieveTransferedDebit(double amount) {
-		return this.removeFunds(amount);
+		return this.addFunds(amount);
 	}
 
 

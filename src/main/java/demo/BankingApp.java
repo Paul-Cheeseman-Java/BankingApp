@@ -15,17 +15,29 @@ public class BankingApp {
 		//Consistent in debit/credit/deposit/withdrawl
 
 		Credit credit  = new Credit("Credit Test", 100);
-		credit.removeFunds(90);
-		System.out.println("Available Credit: " +credit.getAvailableFunds());
+		Current current  = new Current("Current Test", 100);
 
-		Current current  = new Current("Current Test", 50);
-		System.out.println("Current balance: " +current.getAvailableFunds());
-
-		credit.transferCreditTo(current, 15);
-		System.out.println("Available Credit: " +credit.getAvailableFunds());
-		System.out.println("Current balance: " +current.getAvailableFunds());
+		/*
+		current.addFunds(1.0);
+		current.removeFunds(1.0);
+		current.addFunds(22.00);		
+		current.removeFunds(22.00);		
+		current.addFunds(333.00);			
+		current.removeFunds(333.00);			
+		current.addFunds(4444.00);			
+		current.removeFunds(4444.00);			
+		current.addFunds(55555.00);			
+		current.removeFunds(55555.00);			
+		current.addFunds(666666.00);			
+		current.removeFunds(666666.00);			
+		*/
 		
-		
+		credit.transferDebitTo(current, 20.0);
+		current.addFunds(30);
+		credit.transferCreditTo(current, 20.0);
+		current.removeFunds(15);
+		current.transferCreditTo(credit, 7);
+		current.getStatement();
 	}
 	
 

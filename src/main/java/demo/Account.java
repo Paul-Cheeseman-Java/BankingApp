@@ -62,43 +62,92 @@ public class Account implements Comparable<Account> {
 		return true;
 	}
 	
-
+	
 	public String getInsufficientFundsMsg() {
 		return "You don't have sufficent funds in your " +name+ " account";
 	}
 
-	
+		
 	public void creditBalance(double amount) {
 		this.balance += amount;
-		txns.add(new Txn(amount, "Credit"));
+		
+		//Put in a seperate method for adding txns, that way Transferables can override and add a/c 
+		//they're interacting with instead of own a/c as per default
+		
+		//Also instead of Account No in statement have 'Other Acc' also maybe blank 
+		//if txn.account = this.account
+		
+		
+		this.getTransactions().add(new Txn(amount, "Credit", this.getBalance(), this.getAccountNumber()));
 		System.out.println(this.getCreditMadeMsg(amount));
 	} 
 	
 	
 	public void debitBalance(double amount) {
 		this.balance -= amount;
-		txns.add(new Txn(amount, "Debit"));
+		this.getTransactions().add(new Txn(amount, "Debit", this.getBalance(), this.getAccountNumber()));
 		System.out.println(this.getDebitMadeMsg(amount));
 	} 
 
-	private String getDebitMadeMsg(double amount) {
+	public String getDebitMadeMsg(double amount) {
 		return "You have removed  £" +amount+ " from your " +name+ " account";
 	}
 	
-	private String getCreditMadeMsg(double amount) {
+	public String getCreditMadeMsg(double amount) {
 		return "You have added £" +amount+ " to your " +name+ " account";
 	}
-
-
 	
 	public void setTransactions(ArrayList<Txn> txns){
 		this.txns = txns;  
 	}
 	
+	
 	public ArrayList<Txn> getTransactions(){
 		return txns;
 	}
 
+
+	public void listTransactions(){
+		for (Txn txn : txns) {
+			String strAmount = String.valueOf(txn.getAmount());
+			String formatOffset = "";
+			if (strAmount.length() < 4) {
+				
+				formatOffset = "        ";
+			}
+			else if (strAmount.length() < 5) {
+				formatOffset = "       ";
+			}
+			else if (strAmount.length() < 6) {
+				formatOffset = "      ";
+			}
+			else if (strAmount.length() < 7) {
+				formatOffset = "     ";
+			}
+			else if (strAmount.length() < 8) {
+				formatOffset = "    ";
+			}
+			else if (strAmount.length() < 9) {
+				formatOffset = "   ";
+			}
+			if (txn.getType().equals("Debit")) {
+				System.out.println(txn.getStrDate() + "   " +txn.getStrTime()+ "     Debit" +formatOffset+  txn.getAmount()+ "     " +Account.getFormattedAccountNumber(txn.getAccountNumber())+ "     " +txn.getBalance());
+			}
+			else {
+				System.out.println(txn.getStrDate() + "   " +txn.getStrTime()+ "    " +txn.getType()+  formatOffset +txn.getAmount()+ "     " +Account.getFormattedAccountNumber(txn.getAccountNumber())+ "     " +txn.getBalance());
+			}
+		}
+	}
+	
+	public void getStatement(){
+		System.out.println("Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("Customer Account Reference: " +this.getAccountName());
+		System.out.println("   Date        Time       Type      Amount    Account No.  Balance");
+
+		this.listTransactions();
+	}
+
+	
 	public String getAccountName() {
 		return name;
 	}

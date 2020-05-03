@@ -87,7 +87,7 @@ class TestCredit {
 	@Test
 	void testpaymentWithinCreditOwedPaymentLessThanCredit() {
 		Credit testFunds = new Credit ("testAccount", 40.0);
-		assertTrue(testFunds.paymentWithinCreditOwed(30.0));
+		assertFalse(testFunds.paymentWithinCreditOwed(30.0));
 	}	
 	
 	@Test
