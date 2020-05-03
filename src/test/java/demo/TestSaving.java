@@ -1,18 +1,13 @@
 package demo;
 
 import static org.junit.Assert.assertTrue;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 class TestSaving {
 
+	/*
 	@Test
 	void testBooleanRemoveFundsWithinDailyLimitAndAvailableFunds() {
 		Saving test = new Saving("Test", 10.0);
@@ -207,15 +202,5 @@ class TestSaving {
 		assertEquals(test.getDailyDepositTotal(), 0.0);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
+	*/
 }

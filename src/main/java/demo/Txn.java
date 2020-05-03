@@ -12,6 +12,7 @@ public class Txn implements Comparable<Txn> {
 		this.date = LocalDateTime.now();
 		this.type = type;
 		this.amount = amount;
+		//this.transferType - 'Internal, Credit/Debit-In, Credit/Debit-Out'  
 	}
 
 	

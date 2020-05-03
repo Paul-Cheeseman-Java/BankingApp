@@ -28,22 +28,21 @@ public class Credit extends Account {
 	
 	public void reduceCreditLimit(double amount) {
 		if (fundsAvailable(amount)) {
-			//The removeFunds() in Account has a message if not enough funds
 			this.setCreditLimit(this.getCreditLimit() - amount);
+		}
+		else {
+			System.out.println(this.getInsufficientFundsMsg());
 		}
 	}
 	
 	
 	@Override
 	public boolean fundsAvailable(double amount) {
-		
 		//Changing to Big Int for comparison 
 		//https://stackoverflow.com/questions/25160375/comparing-double-values-for-equality-in-java		
 		//https://howtodoinjava.com/java/basics/correctly-compare-float-double/
 		BigDecimal amountBigDec = new BigDecimal(amount);
-		BigDecimal creditLimitBigDec = new BigDecimal(this.getCreditLimit());
 		BigDecimal balanceBigDec = new BigDecimal(this.getBalance());
-	
 		if (amountBigDec.compareTo(balanceBigDec) < 1) {
 			return true;
 		}
@@ -61,15 +60,11 @@ public class Credit extends Account {
 		} else {
 			return false;
 		}
-		
-		
 	}
 	
-
 	
-	
-	//Paying off credit used
 	@Override
+	//Paying off credit used
 	public boolean addFunds(double amount) {
 		if (this.paymentWithinCreditOwed(amount)) {
 			this.creditBalance(amount);
