@@ -8,16 +8,14 @@ public class Txn implements Comparable<Txn> {
 	private LocalDateTime date;
 	private double amount;
 	private String type;
-	private int accountNumber;
 	private double balance;
 	
 
-	public Txn(double amount, String type, double balance, int accountNumber) {
+	public Txn(double amount, String type, double balance) {
 		this.setDate(LocalDateTime.now());
 		this.setType(type);
 		this.setAmount(amount);
 		this.setBalance(balance);
-		this.setAccountNumber(accountNumber);
 	}
 	
 	
@@ -64,14 +62,6 @@ public class Txn implements Comparable<Txn> {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public int getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
 	}
 
 	public double getBalance() {

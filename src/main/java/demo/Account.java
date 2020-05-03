@@ -1,5 +1,7 @@
 package demo;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Account implements Comparable<Account> {
@@ -15,7 +17,11 @@ public class Account implements Comparable<Account> {
 	public static String getFormattedAccountNumber(int accountNum){
 		return String.format("%08d", accountNum);
 	}
-
+	public static String statementNumFormat(double statementNum){
+		return String.format("%" + 8 + "s", statementNum);
+	}
+	
+	
 	public Account(String name) {
 		accountNumberGenerator += 1;
 		setAccountName(name);
@@ -67,25 +73,21 @@ public class Account implements Comparable<Account> {
 		return "You don't have sufficent funds in your " +name+ " account";
 	}
 
-		
+
+	public void addTxn(double amount, String type) {
+		this.getTransactions().add(new Txn(amount, type, this.getBalance()));
+	}
+	
 	public void creditBalance(double amount) {
 		this.balance += amount;
-		
-		//Put in a seperate method for adding txns, that way Transferables can override and add a/c 
-		//they're interacting with instead of own a/c as per default
-		
-		//Also instead of Account No in statement have 'Other Acc' also maybe blank 
-		//if txn.account = this.account
-		
-		
-		this.getTransactions().add(new Txn(amount, "Credit", this.getBalance(), this.getAccountNumber()));
+		this.addTxn(amount, "Credit");
 		System.out.println(this.getCreditMadeMsg(amount));
 	} 
 	
 	
 	public void debitBalance(double amount) {
 		this.balance -= amount;
-		this.getTransactions().add(new Txn(amount, "Debit", this.getBalance(), this.getAccountNumber()));
+		this.addTxn(amount, "Debit");
 		System.out.println(this.getDebitMadeMsg(amount));
 	} 
 
@@ -109,44 +111,37 @@ public class Account implements Comparable<Account> {
 
 	public void listTransactions(){
 		for (Txn txn : txns) {
-			String strAmount = String.valueOf(txn.getAmount());
-			String formatOffset = "";
-			if (strAmount.length() < 4) {
-				
-				formatOffset = "        ";
-			}
-			else if (strAmount.length() < 5) {
-				formatOffset = "       ";
-			}
-			else if (strAmount.length() < 6) {
-				formatOffset = "      ";
-			}
-			else if (strAmount.length() < 7) {
-				formatOffset = "     ";
-			}
-			else if (strAmount.length() < 8) {
-				formatOffset = "    ";
-			}
-			else if (strAmount.length() < 9) {
-				formatOffset = "   ";
-			}
 			if (txn.getType().equals("Debit")) {
-				System.out.println(txn.getStrDate() + "   " +txn.getStrTime()+ "     Debit" +formatOffset+  txn.getAmount()+ "     " +Account.getFormattedAccountNumber(txn.getAccountNumber())+ "     " +txn.getBalance());
+				System.out.println(txn.getStrDate() + " |  " +txn.getStrTime()+ "  |   Debit   |   "  +Account.statementNumFormat(txn.getAmount())+ "  |   " +Account.statementNumFormat(Account.round(txn.getBalance(), 2)) + " |");
 			}
 			else {
-				System.out.println(txn.getStrDate() + "   " +txn.getStrTime()+ "    " +txn.getType()+  formatOffset +txn.getAmount()+ "     " +Account.getFormattedAccountNumber(txn.getAccountNumber())+ "     " +txn.getBalance());
+				System.out.println(txn.getStrDate() + " |  " +txn.getStrTime()+ "  |  Credit   |   "  +Account.statementNumFormat(txn.getAmount())+ "  |   " +Account.statementNumFormat(Account.round(txn.getBalance(), 2)) + " |");
 			}
 		}
 	}
 	
 	public void getStatement(){
-		System.out.println("Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("");
+		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
 		System.out.println("Customer Account Reference: " +this.getAccountName());
-		System.out.println("   Date        Time       Type      Amount    Account No.  Balance");
-
+		System.out.println("---------------------------------------------------------------|");
+		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
+		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
 	}
 
+	
+	/*
+	 * Taken from:
+	 * https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places#2808648
+	 */
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = BigDecimal.valueOf(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
+	}
 	
 	public String getAccountName() {
 		return name;
