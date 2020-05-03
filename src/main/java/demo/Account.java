@@ -36,7 +36,13 @@ public class Account implements Comparable<Account> {
 	}
 	
 	public boolean fundsAvailable(double amount) {
-		return this.balance >= amount;
+		if (this.balance >= amount) {
+			return true;
+		}
+		else {
+			System.out.println(this.getInsufficientFundsMsg());
+			return false;
+		}
 	}
 	
 		
@@ -46,7 +52,6 @@ public class Account implements Comparable<Account> {
 			return true;
 		} 
 		else {
-			System.out.println(this.getInsufficientFundsMsg());
 			return false;
 		}
 	}

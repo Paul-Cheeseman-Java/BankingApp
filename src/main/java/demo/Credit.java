@@ -2,7 +2,7 @@ package demo;
 
 import java.math.BigDecimal;
 
-public class Credit extends Account {
+public class Credit extends Account implements Transferable {
 
 	private double creditLimit;
 	
@@ -15,6 +15,41 @@ public class Credit extends Account {
 	public Credit(String name) {
 		super(name);
 	}
+
+	public boolean transferCreditTo(Transferable txfrObj, double amount) {
+		if (this.fundsAvailable(amount)) {
+			if (txfrObj.recieveTransferedCredit(amount)) {
+				this.removeFunds(amount);
+				return true;
+			}
+			else {
+				return false;			
+			}
+		}
+		else {
+			return false;			
+		}
+	}
+	
+	public boolean transferDebitTo(Transferable txfrObj, double amount) {
+		if (txfrObj.recieveTransferedDebit(amount)) {
+			this.addFunds(amount);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}	
+	
+	
+	public boolean recieveTransferedCredit(double amount) {
+		return this.addFunds(amount);
+	}
+	
+	public boolean recieveTransferedDebit(double amount) {
+		return this.removeFunds(amount);
+	}
+
 
 	public void increaseCreditLimit(double amount) {
 		this.setBalance(this.getBalance() + amount);
@@ -30,9 +65,6 @@ public class Credit extends Account {
 		if (fundsAvailable(amount)) {
 			this.setCreditLimit(this.getCreditLimit() - amount);
 		}
-		else {
-			System.out.println(this.getInsufficientFundsMsg());
-		}
 	}
 	
 	
@@ -47,15 +79,16 @@ public class Credit extends Account {
 			return true;
 		}
 		else {
+			System.out.println(this.getInsufficientFundsMsg());
 			return false;
 		}
 	}
-
 	
 	public boolean paymentWithinCreditOwed(double amount){
 		BigDecimal amountBigDec = new BigDecimal(amount);
 		BigDecimal balanceBigDec = new BigDecimal(this.getBalance());
-		if (amountBigDec.compareTo(balanceBigDec) < 1) {
+		BigDecimal creditLimitBigDec = new BigDecimal(this.getCreditLimit());
+		if (amountBigDec.compareTo(creditLimitBigDec.subtract(balanceBigDec)) < 1) {
 			return true;
 		} else {
 			return false;

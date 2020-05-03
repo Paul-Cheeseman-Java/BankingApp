@@ -1,7 +1,7 @@
 package demo;
 
 
-public class Current extends Account {
+public class Current extends Account implements Transferable {
 
 	private double overdraft;	//Default is 0.0
 	
@@ -14,6 +14,44 @@ public class Current extends Account {
 		super(name, balance);
 	}
 	
+	
+	public boolean transferCreditTo(Transferable txfrObj, double amount) {
+		if (fundsAvailable(amount)) {
+			if (txfrObj.recieveTransferedCredit(amount)) {
+				this.removeFunds(amount);
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+		}
+		else {
+			return false;			
+		}
+	}
+	
+	public boolean transferDebitTo(Transferable txfrObj, double amount) {
+		if (txfrObj.recieveTransferedDebit(amount)) {
+			this.addFunds(amount);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}	
+	
+	
+	public boolean recieveTransferedCredit(double amount) {
+		return this.addFunds(amount);
+	}
+	
+	public boolean recieveTransferedDebit(double amount) {
+		return this.removeFunds(amount);
+	}
+	
+	
+	
 	@Override
 	public double getAvailableFunds() {
 		return getOverdraft() + getBalance();			
@@ -25,7 +63,13 @@ public class Current extends Account {
 
 	@Override
 	public boolean fundsAvailable(double amount) {
-		return (this.getBalance() + getOverdraft()) >= amount;
+		if ((this.getBalance() + getOverdraft()) >= amount) {
+			return true;			
+		}
+		else {
+			System.out.println(getInsufficientFundsMsg());
+			return false;			
+		}
 	}
 	
 	@Override
@@ -38,7 +82,6 @@ public class Current extends Account {
 			return true;
 		} 
 		else {
-			System.out.println(getInsufficientFundsMsg());
 			return false;
 		}
 	}
