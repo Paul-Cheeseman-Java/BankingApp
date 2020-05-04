@@ -13,14 +13,23 @@ public class Current extends Account implements Transferable {
 	public Current(String name, double balance) {
 		super(name, balance);
 	}
+
+		
+
+	public static String overdraftLineFormat(double val){
+		return String.format("%" + 7 + "s", val);
+	}
+
+
 	
 	@Override
 	public void getStatement(){
 		System.out.println("");
 		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("              Account Type: " +this.getClass().getSimpleName());
 		System.out.println("Customer Account Reference: " +this.getAccountName());
-		System.out.println("----------------------------------------------------");
-		System.out.println("         Current Overdraft: " +this.getOverdraft());
+		System.out.println("---------------------------------------------------------------|");
+		System.out.println("         Current Overdraft: " +	Current.overdraftLineFormat(this.getOverdraft()) +"                            |");           
 		System.out.println("---------------------------------------------------------------|");
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
 		System.out.println("---------------------------------------------------------------|");

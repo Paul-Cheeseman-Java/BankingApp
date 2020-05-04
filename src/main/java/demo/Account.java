@@ -25,7 +25,63 @@ public class Account implements Comparable<Account> {
 		return this instanceof Transferable;
 	}
 	
-	//Have an account name and type search return a/c num
+	public boolean isCurrent() {
+		return this instanceof Current;
+	}
+	
+	public boolean isCredit() {
+		return this instanceof Credit;
+	}
+	
+	
+	public boolean changeOverdraftTo(double amount) {
+		if(this.isCurrent()) {
+			Current currentAccount = (Current)this;
+			currentAccount.increaseOverdraftLimit(amount);
+			return true;
+		}
+		else {
+			System.out.println(noOverdraftOnAccountTypeMsg());
+			return false;
+		}
+	}
+
+	public String noOverdraftOnAccountTypeMsg() {
+		return "You cannot have an overdraft on this account type";
+	}
+
+	
+	public boolean increaseCreditLimitTo(double amount) {
+		if(this.isCredit()) {
+			Credit creditAccount = (Credit)this;
+			creditAccount.increaseCreditLimit(amount);
+			return true;
+		}
+		else {
+			System.out.println(noCreditOnAccountTypeMsg());
+			return false;
+		}
+	}
+	
+	
+	public boolean reduceCreditLimitTo(double amount) {
+		if(this.isCredit()) {
+			Credit creditAccount = (Credit)this;
+			creditAccount.reduceCreditLimit(amount);
+			return true;
+		}
+		else {
+			System.out.println(noCreditOnAccountTypeMsg());
+			return false;
+		}
+	}
+	
+	
+	public String noCreditOnAccountTypeMsg() {
+		return "You cannot have a credit limit on this account type";
+	}
+
+	
 	
 	
 	
@@ -156,6 +212,7 @@ public class Account implements Comparable<Account> {
 	public void getStatement(){
 		System.out.println("");
 		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("              Account Type: " +this.getClass().getSimpleName());
 		System.out.println("Customer Account Reference: " +this.getAccountName());
 		System.out.println("---------------------------------------------------------------|");
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
