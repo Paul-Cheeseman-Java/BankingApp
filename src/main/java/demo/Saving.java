@@ -21,7 +21,18 @@ public class Saving extends Account {
 	public Saving(String name, double balance) {
 		super(name, balance);
 	}
-	
+	@Override
+	public void getStatement(){
+		System.out.println("");
+		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("Customer Account Reference: " +this.getAccountName());
+		System.out.println("----------------------------------------------------");
+		System.out.println("          Available Credit: " +this.getAvailableFunds());
+		System.out.println("---------------------------------------------------------------|");
+		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
+		System.out.println("---------------------------------------------------------------|");
+		this.listTransactions();
+	}
 	
 	
 	@Override

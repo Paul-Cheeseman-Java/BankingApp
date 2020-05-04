@@ -47,11 +47,12 @@ public class Credit extends Account implements Transferable {
 	
 	
 	public boolean recieveTransferedCredit(double amount) {
-		return this.removeFunds(amount);
+		return this.addFunds(amount);
+
 	}
 	
 	public boolean recieveTransferedDebit(double amount) {
-		return this.addFunds(amount);
+		return this.removeFunds(amount);
 	}
 
 
@@ -100,6 +101,7 @@ public class Credit extends Account implements Transferable {
 	}
 	
 	
+	
 	@Override
 	//Paying off credit used
 	public boolean addFunds(double amount) {
@@ -109,9 +111,18 @@ public class Credit extends Account implements Transferable {
 			return true;
 		}
 		else {
+
+			System.out.println(this.getPaymentLargerThanCreditOwedMsg(amount));
+			
 			return false;
 		}
 	}
+	
+	public String getPaymentLargerThanCreditOwedMsg(double amount) {
+		return "Payment Rejected - £" +amount+ " exceeds the outstanding credit balance on the account";
+	}
+	
+	
 	
 	public double getCreditLimit() {
 		return creditLimit;

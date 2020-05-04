@@ -11,7 +11,7 @@ public class Account implements Comparable<Account> {
 	private double balance;
 	private ArrayList<Txn> txns;
 	
-	private static int accountNumberGenerator = 1;
+	private static int accountNumberGenerator;
 	
 
 	public static String getFormattedAccountNumber(int accountNum){
@@ -19,6 +19,39 @@ public class Account implements Comparable<Account> {
 	}
 	public static String statementNumFormat(double statementNum){
 		return String.format("%" + 8 + "s", statementNum);
+	}
+
+	public boolean isTransferable() {
+		return this instanceof Transferable;
+	}
+	
+	//Have an account name and type search return a/c num
+	
+	
+	
+	public boolean makeTransferTo(Account account, String type, double amount) {
+		
+		if(this.isTransferable() && account.isTransferable()) {
+		
+			Transferable transferTo = (Transferable) account;
+			Transferable transferFrom = (Transferable) this;
+			
+			
+			if (type.contentEquals("Credit")) {
+				transferFrom.transferCreditTo(transferTo, amount);
+			}
+			else if (type.contentEquals("Debit")) {
+				transferFrom.transferDebitTo(transferTo, amount);
+			}
+			return true;
+			
+			
+			
+		}
+		else {
+			System.out.println("Money cannot be transfered between these account types");
+			return false;
+		}
 	}
 	
 	

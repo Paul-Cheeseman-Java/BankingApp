@@ -1,8 +1,6 @@
 package demo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Customer {
 	
@@ -23,7 +21,22 @@ public class Customer {
 	public ArrayList<Account> listAccounts() {
 		return accounts;
 	}
-
+	
+	
+	public ArrayList<Account> listAccounts(String accountType) {
+		ArrayList<Account> specificTypeList = new ArrayList<Account>();
+		for (Account account : accounts){
+			if (account.getClass().getSimpleName().equals(accountType)) {
+				specificTypeList.add(account);				
+			}
+		}
+		return accounts;
+	}
+	
+	public void addAccounts(Account account) {
+		accounts.add(account);
+	}
+	
 	
 	public boolean haveAccountType(String accountType) {
 		for (Account account : accounts){
@@ -33,13 +46,6 @@ public class Customer {
 		}
 		return false;
 	}
-	
-	//put in credit account class (and specific elements)
-	//then look to implement the transferable interface!!!!
-	//then put in saving class
-	//look into test suite
-
-	//possible db and web version??? API could enable "customers to connect with account number???"
 	
 	
 	public Account getAccount(int accountNum) {
