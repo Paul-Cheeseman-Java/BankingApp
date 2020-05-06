@@ -3,6 +3,8 @@ package demo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Account implements Comparable<Account> {
 	
@@ -13,7 +15,133 @@ public class Account implements Comparable<Account> {
 	
 	private static int accountNumberGenerator;
 	
+	public Account(String name) {
+		accountNumberGenerator += 1;
+		setAccountName(name);
+		setTransactions(new ArrayList<Txn>());
+		setAccountNumber(accountNumberGenerator);
+	}
+	
+	public Account(String name, double balance) {
+		accountNumberGenerator += 1;
+		setAccountName(name);
+		setBalance(balance);
+		setTransactions(new ArrayList<Txn>());
+		setAccountNumber(accountNumberGenerator);
+	}
 
+	public void customerMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1 - Update Account Name");
+		System.out.println("E - Exit");
+		char custMenuInput = sc.next().toCharArray()[0];
+		while (custMenuInput != '1' && custMenuInput != 'E' && custMenuInput != 'e'){
+			System.out.println("1 - Update Account Name");
+			System.out.println("E - Exit");
+			custMenuInput = sc.next().toCharArray()[0];
+		}
+		if (custMenuInput == '1') {
+			
+		} else {
+			//call previous menus
+		}
+	}
+	
+	public void tellerMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1 - Update Account Name");
+		System.out.println("2 - Update Account Balance");
+		System.out.println("E - Exit");
+		char custMenuInput = sc.next().toCharArray()[0];
+		while (custMenuInput != '1' && custMenuInput != '2' && custMenuInput != 'E' && custMenuInput != 'e'){
+			System.out.println("1 - Update Account Name");
+			System.out.println("E - Exit");
+			custMenuInput = sc.next().toCharArray()[0];
+		}
+	}
+
+	
+	public static boolean validAccountName(String str) {
+		if (str.length() >= 5) {
+			//Check for all blanks or empty
+			char[] charArray = str.toCharArray();
+			for (char c : charArray) {
+				if (c != ' ') {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+		
+	
+	public static String promptEnterAccountName() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Account Name (5 chars minimum)");
+		String accName = sc.nextLine();
+		while (!Account.validAccountName(accName)){
+			System.out.println("Enter Account Name (5 chars minimum)");
+			accName = sc.nextLine();
+		}
+		return accName;
+	}
+	
+	
+	public static double promptEnterAccountBalance() {
+		Scanner sc = new Scanner(System.in);
+		double accBal = 0.0;
+		try {
+			System.out.println("Enter Account Balance (cannot be negative):");
+			accBal = (double)sc.nextDouble();
+			while (accBal < 0){
+				System.out.println("Enter Account Balance:");
+				accBal = sc.nextDouble();
+
+			}
+			System.out.println("Val: "+accBal);
+		} catch (InputMismatchException e) {
+			Account.promptEnterAccountBalance();
+		}
+		return accBal;
+	}
+
+	
+	public static Account customerOpenAccount() {
+		return new Account(Account.promptEnterAccountName());
+	}
+	
+	public Account tellerOpenAccount() {
+		return new Account(Account.promptEnterAccountName(), Account.promptEnterAccountBalance());
+	}
+
+	
+	
+	
+	public static boolean isCloseable(Account account) {
+		return account.getBalance() == 0.0;
+	}
+	
+	public static boolean closeAccount(Account account) {
+		if (isCloseable(account)) {
+			System.out.println(Account.accountClosedMsg());
+			return true;
+		}
+		else {
+			System.out.println(Account.accountNotClosedMsg());
+			return false;
+		}
+		
+	}
+	
+	public static String accountClosedMsg() {
+		return "The account has been closed";
+	}
+	
+	public static String accountNotClosedMsg() {
+		return "Unable to close account because the balance is not 0";
+	}
+	
+	
 	public static String getFormattedAccountNumber(int accountNum){
 		return String.format("%08d", accountNum);
 	}
@@ -109,22 +237,7 @@ public class Account implements Comparable<Account> {
 			return false;
 		}
 	}
-	
-	
-	public Account(String name) {
-		accountNumberGenerator += 1;
-		setAccountName(name);
-		setTransactions(new ArrayList<Txn>());
-		setAccountNumber(accountNumberGenerator);
-	}
-	
-	public Account(String name, double balance) {
-		accountNumberGenerator += 1;
-		setAccountName(name);
-		setBalance(balance);
-		setTransactions(new ArrayList<Txn>());
-		setAccountNumber(accountNumberGenerator);
-	}
+
 	
 	public double getAvailableFunds() {
 		return balance;			
