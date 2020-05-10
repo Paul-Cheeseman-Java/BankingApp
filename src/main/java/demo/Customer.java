@@ -1,6 +1,7 @@
 package demo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Customer implements Updateable {
 	
@@ -18,11 +19,27 @@ public class Customer implements Updateable {
 	}
 	
 	
+	public void cutomerMenu() {
+		String action = Account.actionMenu();
+		if (action.equals("Open")) {
+			this.openAccount();
+		} else if (action.equals("Update")) {
+			this.updateAccount();
+		} else if (action.equals("Close")) {
+			this.closeAccount();
+		} else if (action.equals("Close")) {
+			//exit app
+		}
+	}
+
+	
+	
+	
 	public ArrayList<Account> listAccounts() {
 		return accounts;
 	}
 	
-	
+		
 	public ArrayList<Account> listAccounts(String accountType) {
 		ArrayList<Account> specificTypeList = new ArrayList<Account>();
 		for (Account account : accounts){
@@ -35,7 +52,7 @@ public class Customer implements Updateable {
 	
 
 
-	public void openAccount() {
+	public void openAccount() { 
 		System.out.println("Which type of account would you like to open?");
 		String accType = Account.selectAccountTypeMenu();
 		if (accType == "Current") {
@@ -51,13 +68,18 @@ public class Customer implements Updateable {
 			newAcc.setAccountName(newAcc.promptEnterAccountName());
 			this.addAccount(newAcc);
 		}
+		System.out.println("New " + accType + " account opened");
+
 	}
 
 	public void closeAccount() {
+		System.out.println("Which type of account would you like to close?");
 		Account accToClose = Account.selectAccountMenu(this.getAccounts());
 		if (this.getAccount(accToClose.getAccountNumber()) != null) {
 			if (accToClose.closeAccount()) {
 				this.removeAccount(accToClose.getAccountNumber());
+			} else {
+				this.closeAccount();
 			}
 		}
 		else {
@@ -67,9 +89,11 @@ public class Customer implements Updateable {
 	
 	
 	public void updateAccount() {
+		System.out.println("Which type of account would you like to update?");
 		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
 		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
 			accToUpdate.setAccountName(accToUpdate.promptEnterAccountName());
+			System.out.println("New account name is " + accToUpdate.getAccountName());
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");

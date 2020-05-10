@@ -23,8 +23,9 @@ public class BankingApp {
 		bod.addAccount(saving);
 		bod.addAccount(testSaving);
 		bod.getAccount(3).removeFunds(20);
-		bod.closeAccount();
-		System.out.println(bod.getAccount(1).selectAccountMenu(bod.getAccounts()));		
+		
+		bod.cutomerMenu();
+		//System.out.println(bod.getAccount(1).selectAccountMenu(bod.getAccounts()));		
 	}
 	
 

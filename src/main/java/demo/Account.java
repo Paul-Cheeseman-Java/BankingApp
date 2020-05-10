@@ -39,7 +39,39 @@ public class Account implements Comparable<Account> {
 		setAccountNumber(accountNumberGenerator);
 	}
 
+	public static String actionMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What would you like to do?");
+		System.out.println("1 - Open an account");
+		System.out.println("2 - Update an account");
+		System.out.println("3 - Close an account");
+		System.out.println("0 - Exit");
+		char actionMenu = sc.next().toCharArray()[0];
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '0'){
+			System.out.println("Please select a valid option:");
+			System.out.println("1 - Current an account");
+			System.out.println("2 - Credit an account");
+			System.out.println("3 - Saving an account");
+			System.out.println("0 - Exit");
+			actionMenu = sc.next().toCharArray()[0];
+		}
+		String actType = "";
+		if (actionMenu == '1') {
+			actType = "Open";
+		}
+		else if (actionMenu == '2') {
+			actType = "Update";
+		}
+		else if (actionMenu == '3') {
+			actType = "Close";
+		}
+		else if (actionMenu == '0') {
+			actType = "Exit";
+		}
+		return actType;
+	}
 	
+		
 	
 	public static String selectAccountTypeMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -84,15 +116,12 @@ public class Account implements Comparable<Account> {
 		if (sc.hasNextInt()){
 			int input = sc.nextInt();
 			//System.out.println("Value: " + input);
-			if(input < menuNum || input > 0) {
+			if(input <= menuNum && input > 0) {
 				System.out.println("Selected Account: " + accountList.get((input-1)).getAccountNumber());
 				return accountList.get((input-1));
 			}
 			else if (input == 0) {
 				System.out.println("Exit to main menu");				
-			}
-			else {
-				Account.selectAccountMenu(accountList);
 			}
 		}
 		Account.selectAccountMenu(accountList);
