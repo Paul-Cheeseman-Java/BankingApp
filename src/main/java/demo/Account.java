@@ -3,6 +3,7 @@ package demo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,6 +15,14 @@ public class Account implements Comparable<Account> {
 	private ArrayList<Txn> txns;
 	
 	private static int accountNumberGenerator;
+
+	public Account() {
+		accountNumberGenerator += 1;
+		setAccountName(name);
+		setTransactions(new ArrayList<Txn>());
+		setAccountNumber(accountNumberGenerator);
+	}
+
 	
 	public Account(String name) {
 		accountNumberGenerator += 1;
@@ -30,40 +39,84 @@ public class Account implements Comparable<Account> {
 		setAccountNumber(accountNumberGenerator);
 	}
 
-	public void customerMenu() {
+	
+	
+	public static String selectAccountTypeMenu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1 - Update Account Name");
+		System.out.println("1 - Current account");
+		System.out.println("2 - Credit account");
+		System.out.println("3 - Saving account");
 		System.out.println("E - Exit");
-		char custMenuInput = sc.next().toCharArray()[0];
-		while (custMenuInput != '1' && custMenuInput != 'E' && custMenuInput != 'e'){
-			System.out.println("1 - Update Account Name");
+		char whichAccountMenu = sc.next().toCharArray()[0];
+		while (whichAccountMenu != '1' && whichAccountMenu != '2' && whichAccountMenu != '3' && 
+				whichAccountMenu != 'E' && whichAccountMenu != 'e'){
+			System.out.println("Please setect a valid option:");
+			System.out.println("1 - Current account");
+			System.out.println("2 - Credit account");
+			System.out.println("3 - Saving account");
 			System.out.println("E - Exit");
-			custMenuInput = sc.next().toCharArray()[0];
+			whichAccountMenu = sc.next().toCharArray()[0];
 		}
-		if (custMenuInput == '1') {
-			
-		} else {
-			//call previous menus
+		String accType = "";
+		if (whichAccountMenu == '1') {
+			accType = "Current";
 		}
+		else if (whichAccountMenu == '2') {
+			accType = "Credit";
+		}
+		else if (whichAccountMenu == '3') {
+			accType = "Saving";
+		}
+		return accType;
 	}
 	
-	public void tellerMenu() {
+
+	public static Account selectAccountMenu(ArrayList<Account> accountList) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1 - Update Account Name");
-		System.out.println("2 - Update Account Balance");
-		System.out.println("E - Exit");
-		char custMenuInput = sc.next().toCharArray()[0];
-		while (custMenuInput != '1' && custMenuInput != '2' && custMenuInput != 'E' && custMenuInput != 'e'){
-			System.out.println("1 - Update Account Name");
-			System.out.println("E - Exit");
-			custMenuInput = sc.next().toCharArray()[0];
+		int menuNum = 0;
+		Collections.sort(accountList);
+		System.out.println("Select the account:");
+		for (Account account : accountList) {
+			menuNum += 1;
+			System.out.println(menuNum + " - Account Number: " +account.getAccountNumber() + " - Account name: " +account.getAccountName());
 		}
+		System.out.println("0 - Exit");
+		if (sc.hasNextInt()){
+			int input = sc.nextInt();
+			//System.out.println("Value: " + input);
+			if(input < menuNum || input > 0) {
+				System.out.println("Selected Account: " + accountList.get((input-1)).getAccountNumber());
+				return accountList.get((input-1));
+			}
+			else if (input == 0) {
+				System.out.println("Exit to main menu");				
+			}
+			else {
+				Account.selectAccountMenu(accountList);
+			}
+		}
+		Account.selectAccountMenu(accountList);
+		//Irrelevant return statement
+		return null;
 	}
 
 	
-	public static boolean validAccountName(String str) {
+
+	
+	public boolean keepCurrentValue(String str) {
+		if (str.length() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean validAccountName(String str) {
+		if (keepCurrentValue(str)) {
+			return true;
+		}
 		if (str.length() >= 5) {
-			//Check for all blanks or empty
+			//Check for all blanks
 			char[] charArray = str.toCharArray();
 			for (char c : charArray) {
 				if (c != ' ') {
@@ -75,70 +128,78 @@ public class Account implements Comparable<Account> {
 	}
 		
 	
-	public static String promptEnterAccountName() {
+	public String promptEnterAccountName() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Account Name (5 chars minimum)");
 		String accName = sc.nextLine();
-		while (!Account.validAccountName(accName)){
+
+		if (this.keepCurrentValue(accName)) {
+			return this.getAccountName();
+		}
+		
+		while (!this.validAccountName(accName)){
 			System.out.println("Enter Account Name (5 chars minimum)");
 			accName = sc.nextLine();
 		}
 		return accName;
 	}
 	
-	
-	public static double promptEnterAccountBalance() {
+
+	//https://stackoverflow.com/questions/3543729/how-to-check-that-a-string-is-parseable-to-a-double
+	public double promptEnterAccountBalance() {
 		Scanner sc = new Scanner(System.in);
+		String accStr;
 		double accBal = 0.0;
 		try {
 			System.out.println("Enter Account Balance (cannot be negative):");
-			accBal = (double)sc.nextDouble();
-			while (accBal < 0){
-				System.out.println("Enter Account Balance:");
-				accBal = sc.nextDouble();
+			accStr = sc.nextLine();
+			
+			System.out.println("Picked Up? " +this.keepCurrentValue(String.valueOf(accStr)));
+			if (this.keepCurrentValue(String.valueOf(accStr))) {
+				return this.getBalance();	
 
+			} 
+			else {
+				accBal = Double.parseDouble(accStr);
+				while (accBal < 0){
+					System.out.println("Enter Account Balance (needs to be numeric):");
+					accBal = sc.nextDouble();
+
+					if (this.keepCurrentValue(String.valueOf(accBal))) {
+						return this.getBalance();	
+					}
+				}
 			}
-			System.out.println("Val: "+accBal);
-		} catch (InputMismatchException e) {
-			Account.promptEnterAccountBalance();
+		} catch (NumberFormatException e) {
+			this.promptEnterAccountBalance();
 		}
 		return accBal;
 	}
 
+		
 	
-	public static Account customerOpenAccount() {
-		return new Account(Account.promptEnterAccountName());
+	public boolean isCloseable() {
+		return this.getBalance() == 0.0;
 	}
 	
-	public Account tellerOpenAccount() {
-		return new Account(Account.promptEnterAccountName(), Account.promptEnterAccountBalance());
-	}
-
-	
-	
-	
-	public static boolean isCloseable(Account account) {
-		return account.getBalance() == 0.0;
-	}
-	
-	public static boolean closeAccount(Account account) {
-		if (isCloseable(account)) {
-			System.out.println(Account.accountClosedMsg());
+	public boolean closeAccount() {
+		if (isCloseable()) {
+			System.out.println(this.accountClosedMsg());
 			return true;
 		}
 		else {
-			System.out.println(Account.accountNotClosedMsg());
+			System.out.println(this.accountNotClosedMsg());
 			return false;
 		}
 		
 	}
 	
-	public static String accountClosedMsg() {
-		return "The account has been closed";
+	public String accountClosedMsg() {
+		return "The " + this.getClass().getSimpleName() + " account " + this.getAccountName() + " has been closed";
 	}
 	
-	public static String accountNotClosedMsg() {
-		return "Unable to close account because the balance is not 0";
+	public String accountNotClosedMsg() {
+		return "Unable to close the " + this.getClass().getSimpleName() + " account " + this.getAccountName() + " because the balance is not 0";
 	}
 	
 	
@@ -214,13 +275,9 @@ public class Account implements Comparable<Account> {
 	
 	
 	public boolean makeTransferTo(Account account, String type, double amount) {
-		
 		if(this.isTransferable() && account.isTransferable()) {
-		
 			Transferable transferTo = (Transferable) account;
 			Transferable transferFrom = (Transferable) this;
-			
-			
 			if (type.contentEquals("Credit")) {
 				transferFrom.transferCreditTo(transferTo, amount);
 			}
@@ -228,9 +285,6 @@ public class Account implements Comparable<Account> {
 				transferFrom.transferDebitTo(transferTo, amount);
 			}
 			return true;
-			
-			
-			
 		}
 		else {
 			System.out.println("Money cannot be transfered between these account types");

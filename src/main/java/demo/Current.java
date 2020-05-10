@@ -1,5 +1,7 @@
 package demo;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Current extends Account implements Transferable {
 
@@ -14,6 +16,10 @@ public class Current extends Account implements Transferable {
 		super(name, balance);
 	}
 
+	
+	public Current() {
+
+	}
 		
 
 	public static String overdraftLineFormat(double val){
@@ -109,8 +115,42 @@ public class Current extends Account implements Transferable {
 		}
 	}
 	
-	
 
+	public double promptEnterAccountOverdraft() {
+		Scanner sc = new Scanner(System.in);
+		double accOverD = 0.0;
+		try {
+			System.out.println("Enter Account Balance (cannot be negative):");
+			accOverD = (double)sc.nextDouble();
+			while (accOverD < 0){
+				System.out.println("Enter Account Balance (needs to be numeric):");
+				accOverD = sc.nextDouble();
+
+			}
+		} catch (InputMismatchException e) {
+			this.promptEnterAccountOverdraft();
+		}
+		return accOverD;
+	}
+	
+	
+	public static Account customerOpenAccount() {
+		Current newAcc = new Current();
+		newAcc.setAccountName(newAcc.promptEnterAccountName());
+		System.out.println("Current account open");
+		return newAcc;
+	}
+	
+	
+	public Account tellerOpenAccount() {
+		Current newAcc = new Current();
+		newAcc.setAccountName(newAcc.promptEnterAccountName());
+		newAcc.increaseOverdraftLimit(promptEnterAccountOverdraft());
+		return newAcc;
+	}
+	
+	
+	
 	private String getInOverdraftMsg() {
 		return "You are now in your overdraft on your " +getAccountName()+ " current account with £ " + getAvailableFunds() + " remaining";
 	}

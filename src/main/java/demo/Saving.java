@@ -22,6 +22,17 @@ public class Saving extends Account {
 		super(name, balance);
 	}
 	
+	public Saving() {
+
+	}
+	
+	
+	public static Account customerOpenAccount() {
+		Saving newAcc = new Saving();
+		newAcc.setAccountName(newAcc.promptEnterAccountName());
+		System.out.println("Saving account open");
+		return newAcc;
+	}
 	
 	@Override
 	public boolean removeFunds(double amount) {

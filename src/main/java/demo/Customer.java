@@ -2,7 +2,7 @@ package demo;
 
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Updateable {
 	
 	private static int idNumber = 1; 
 	
@@ -33,7 +33,51 @@ public class Customer {
 		return accounts;
 	}
 	
-	public void addAccounts(Account account) {
+
+
+	public void openAccount() {
+		System.out.println("Which type of account would you like to open?");
+		String accType = Account.selectAccountTypeMenu();
+		if (accType == "Current") {
+			Current newAcc = new Current();
+			newAcc.setAccountName(newAcc.promptEnterAccountName());
+			this.addAccount(newAcc);
+		} else if (accType == "Credit") {
+			Credit newAcc = new Credit();
+			newAcc.setAccountName(newAcc.promptEnterAccountName());
+			this.addAccount(newAcc);
+		} else if (accType == "Saving") {
+			Saving newAcc = new Saving();
+			newAcc.setAccountName(newAcc.promptEnterAccountName());
+			this.addAccount(newAcc);
+		}
+	}
+
+	public void closeAccount() {
+		Account accToClose = Account.selectAccountMenu(this.getAccounts());
+		if (this.getAccount(accToClose.getAccountNumber()) != null) {
+			if (accToClose.closeAccount()) {
+				this.removeAccount(accToClose.getAccountNumber());
+			}
+		}
+		else {
+			System.out.println("Sorry, that account does not exist");
+		}
+	}
+	
+	
+	public void updateAccount() {
+		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
+		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
+			accToUpdate.setAccountName(accToUpdate.promptEnterAccountName());
+		}
+		else {
+			System.out.println("Sorry, that account does not exist");
+		}
+	}
+	
+	
+	public void addAccount(Account account) {
 		accounts.add(account);
 	}
 	

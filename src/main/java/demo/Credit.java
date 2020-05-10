@@ -16,6 +16,10 @@ public class Credit extends Account implements Transferable {
 		super(name);
 	}
 
+	public Credit() {
+
+	}
+	
 	public void addTransaction(double amount, String type, int accountNumber) {}
 	public void listTransactions() {}
 	
@@ -91,6 +95,14 @@ public class Credit extends Account implements Transferable {
 			this.setCreditLimit(this.getCreditLimit() - amount);
 		}
 	}
+	
+	public static Account customerOpenAccount() {
+		Credit newAcc = new Credit();
+		newAcc.setAccountName(newAcc.promptEnterAccountName());
+		System.out.println("Credit account open");
+		return newAcc;
+	}
+	
 	
 	
 	@Override
