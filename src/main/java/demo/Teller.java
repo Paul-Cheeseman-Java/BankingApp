@@ -49,7 +49,6 @@ public class Teller implements Updateable {
 	public Customer getCustomer(int id) {
 		for (Customer customer : this.getCustomers()) {
 			if (customer.getId()==id) {
-				System.out.println("Returned Cust Name: " +customer.getName());
 				return customer;
 			}
 		}

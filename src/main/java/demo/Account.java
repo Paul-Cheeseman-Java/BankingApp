@@ -133,8 +133,7 @@ public class Account implements Comparable<Account> {
 
 	
 	public boolean keepCurrentValue(String str) {
-		//Do I need to add a check to make sure that a current value exists???? <<<<<<<<<<<<<<<<<<<<<<<<<<
-		if (str.length() == 0) {
+		if (str.length() == 0 && this.getAccountName() != null) {
 			return true;
 		}
 		return false;
