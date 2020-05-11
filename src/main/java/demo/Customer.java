@@ -13,9 +13,10 @@ public class Customer implements Updateable {
 	
 	
 	public Customer(String name) {
-		setId(idNumber);
-		setAccounts(new ArrayList<Account>());
-		idNumber += 1;
+		this.setId(idNumber);
+		this.setAccounts(new ArrayList<Account>());
+		Customer.idNumber += 1;
+		this.setName(name);
 	}
 	
 	
@@ -39,6 +40,10 @@ public class Customer implements Updateable {
 		return accounts;
 	}
 	
+	
+	public int amountOfAccounts() {
+		return this.getAccounts().size();
+	}
 		
 	public ArrayList<Account> listAccounts(String accountType) {
 		ArrayList<Account> specificTypeList = new ArrayList<Account>();

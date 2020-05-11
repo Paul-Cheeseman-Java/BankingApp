@@ -133,6 +133,7 @@ public class Account implements Comparable<Account> {
 
 	
 	public boolean keepCurrentValue(String str) {
+		//Do I need to add a check to make sure that a current value exists???? <<<<<<<<<<<<<<<<<<<<<<<<<<
 		if (str.length() == 0) {
 			return true;
 		}
@@ -167,8 +168,7 @@ public class Account implements Comparable<Account> {
 		}
 		
 		while (!this.validAccountName(accName)){
-			System.out.println("Enter Account Name (5 chars minimum)");
-			accName = sc.nextLine();
+			accName = this.promptEnterAccountName();
 		}
 		return accName;
 	}

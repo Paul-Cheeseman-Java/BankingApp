@@ -7,12 +7,17 @@ public class Bank {
 	
 	private String name;
 	private ArrayList<Customer> customers;
-	
+	private ArrayList<Teller> tellers;	
 	/* HAVE I BEEN CONSISTENT THROUGH ALL CLASSES WITH USE OF this ANNOTATION???? */
 	
 	//Logon screen - Welcome etc, are you a Teller or Customer
 	//Teller and Customer have own menus
 	
+	public Bank(String name) {
+		this.setName(name);
+		this.setCustomers(new ArrayList<Customer>());
+		this.setTellers(new ArrayList<Teller>());
+	}
 	
 	
 	public void listCustomers() {
@@ -43,27 +48,53 @@ public class Bank {
 			//Quit application
 		}
 	}
-	
-	
-	
-	public void addCustomer(Customer customer) {
-		this.customers.add(customer);
+
+	public void addTeller(ArrayList<Customer> customers) {
+		Teller newTeller = new Teller(customers);
+		tellers.add(newTeller);
 	}
 	
-	public void removeCustomer(Customer customer) {
-		this.customers.remove(customer);
+	public void removeTeller(Teller teller) {
+		tellers.remove(teller);
 	}
 	
-	public Customer getCustomer(String id) {
-		/*
-		for (Accounting account : accounts) {
-			if (name.equals(account.getAccountName())) {
-				return account;
-			}
+	public void listTellers() {
+		for (Teller teller : tellers) {
+			System.out.println("Teller id: " +teller.getId());			
 		}
-		*/
-		return null;
 	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public ArrayList<Customer> getCustomers() {
+		return customers;
+	}
+
+
+	public void setCustomers(ArrayList<Customer> customers) {
+		this.customers = customers;
+	}
+
+
+	public ArrayList<Teller> getTellers() {
+		return tellers;
+	}
+
+
+	public void setTellers(ArrayList<Teller> tellers) {
+		this.tellers = tellers;
+	}
+	
+
 	
 
 

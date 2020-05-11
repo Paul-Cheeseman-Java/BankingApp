@@ -1,52 +1,107 @@
 package demo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Teller implements Updateable {
 	
 	private static int idNumber = 1; 
 	
 	private int id;
-	private String name;
+	private ArrayList<Customer> customers;
 	
-	
-	public Teller(String name) {
+	public Teller(ArrayList<Customer> customers) {
 		setId(idNumber);
 		idNumber += 1;
+		this.customers = customers;
 	}
 	
-	public void openAccount() {}
-	public void updateAccount() {}
-	public void closeAccount() {}
-	/*
-	 	Open - account
-	 	Update - account
-	 	Close - account
-		
-	//getCustomer (from a logon screen)
-	//add, remove, update customer (go to customer menu?)
+	public void addCustomer(Customer customer) {
+		this.customers.add(customer);
+	}
+	
+	public void removeCustomer(Customer customer) {
+		if (this.customerRemovable(customer.getId())) {
+			this.customers.remove(customer);			
+		} else {
+			System.out.println("The customer still has accounts open, cannot be removed");
+		}
+	}
+
+	public int promptEnterCustomerID() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Customer ID:");
+		while (!sc.hasNextInt()) {
+	        System.out.println("Enter Customer ID (Must be numeric)");
+	        sc.next();
+	    }
+	    return sc.nextInt();
+	}
+
+	
+	public boolean customerExist(int id) {
+		return (this.getCustomer(id) != null);
+	}
 	
 	
 
-	public void openAccount() { 
+	
+	public Customer getCustomer(int id) {
+		for (Customer customer : this.getCustomers()) {
+			if (customer.getId()==id) {
+				System.out.println("Returned Cust Name: " +customer.getName());
+				return customer;
+			}
+		}
+		return null;
+	}
+
+	
+	public boolean customerRemovable(int id) {
+		 return this.getCustomer(id).amountOfAccounts() == 0;
+	}
+	
+	
+	//public void openAccount() {}
+	public void updateAccount() {}
+	public void closeAccount() {}
+
+	
+	public Customer obtainValidCustomer() {
+		int valCust = this.promptEnterCustomerID();
+		while (!this.customerExist(valCust)) {
+			System.out.println("Please enter the id of an existing customer");
+			valCust = this.promptEnterCustomerID();
+		}
+		return this.getCustomer(valCust);
+	}
+	
+
+	
+	public void openAccount() {
+		//Just need to point to the returned variable
+		Customer customer = this.obtainValidCustomer();
+	
 		System.out.println("Which type of account would you like to open?");
-		
-		//getCustomer
+
 		String accType = Account.selectAccountTypeMenu();
 		
 		if (accType == "Current") {
 			Current newAcc = new Current();
+			newAcc.setAccountName(newAcc.promptEnterAccountName());
+			customer.addAccount(newAcc);
 		} else if (accType == "Credit") {
 			Credit newAcc = new Credit();
 			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			this.addAccount(newAcc);
+			customer.addAccount(newAcc);
 		} else if (accType == "Saving") {
 			Saving newAcc = new Saving();
 			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			this.addAccount(newAcc);
+			customer.addAccount(newAcc);
 		}
+		System.out.println("New " +accType+ " account opened");
 	}
-
+	
 	/*
 	public void closeAccount() {
 		Account accToClose = Account.selectAccountMenu(this.getAccounts());
@@ -74,16 +129,6 @@ public class Teller implements Updateable {
 	}
 	*/
 	
-	public static int getIdNumber() {
-		return idNumber;
-	}
-
-
-	public static void setIdNumber(int idNumber) {
-		Teller.idNumber = idNumber;
-	}
-
-
 	public int getId() {
 		return id;
 	}
@@ -93,16 +138,13 @@ public class Teller implements Updateable {
 		this.id = id;
 	}
 
-
-	public String getName() {
-		return name;
+	public ArrayList<Customer> getCustomers() {
+		return customers;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setCustomers(ArrayList<Customer> customers) {
+		this.customers = customers;
 	}
-
 
 	
 }

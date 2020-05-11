@@ -10,8 +10,27 @@ public class BankingApp {
 	//Consistent in debit/credit/deposit/withdrawal
 	
 	public static void main(String[] args) {
+
+		Bank BankOCheese = new Bank("BankOCheese");
+		Teller tel = new Teller(BankOCheese.getCustomers());
+
+		Customer bod1 = new Customer("bod1");
+		tel.addCustomer(bod1);
+		
+		//System.out.println("CustID is...: " +tel.promptEnterCustomerID());
+		//Customer testBod = tel.obtainValidCustomer();
+		
+		bod1.openAccount();
+		tel.openAccount();
+		System.out.println("Bods Accounts........:");
+		for (Account account : bod1.listAccounts()) {
+			System.out.println("Account: " +account.getAccountName());
+		}
+		
+		/*
 		// TODO Auto-generated method stub
 		Customer bod = new Customer("Bod");
+
 
 		Saving testSaving = new Saving("New Saving", 30);
 		Current current = new Current("Current", 10);
@@ -25,7 +44,9 @@ public class BankingApp {
 		bod.getAccount(3).removeFunds(20);
 		
 		bod.cutomerMenu();
-		//System.out.println(bod.getAccount(1).selectAccountMenu(bod.getAccounts()));		
+		//System.out.println(bod.getAccount(1).selectAccountMenu(bod.getAccounts()));
+		 * 		
+		 */
 	}
 	
 
