@@ -45,26 +45,39 @@ public class Current extends Account implements Transferable {
 		this.promptEnterAccountOverdraftIncrease();
 	}
 	
-	//tellerUpdateMenu (need a customer one??)
-	//What would you like to update
-	//Account name
-	//Credit limit?
-	
-	@Override
-	public void tellerUpdateAccount() { 
-		this.setAccountName(this.promptEnterAccountName());
-		/*
-		double requestedUpdate = this.promptEnterAccountOverdraft();
-		if (requestedUpdate > this.getOverdraft()) {
-			this.increaseOverdraftLimit(requestedUpdate);
-		} else if (requestedUpdate < this.getOverdraft()) {
-			this.reduceOverdraftLimit(requestedUpdate);
+	public char tellerUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1 - Account Name");
+		System.out.println("2 - Increase Overdraft");
+		System.out.println("3 - Reduce Overdraft");
+		System.out.println("E - Exit");
+		char updateMenu = sc.next().toCharArray()[0];
+		while (updateMenu != '1' && updateMenu != '2' && updateMenu != '3' && 
+				updateMenu != 'E' && updateMenu != 'e'){
+			System.out.println("Please setect a valid option:");
+			System.out.println("1 - Account Name");
+			System.out.println("2 - Increase Overdraft");
+			System.out.println("3 - Reduce Overdraft");
+			System.out.println("E - Exit");
+			updateMenu = sc.next().toCharArray()[0];
 		}
-		*/
-		
+		return updateMenu;
 	}
 
 	
+	
+	@Override
+	public void tellerUpdateAccount() { 
+		char choice = this.tellerUpdateMenu();
+		if (choice == '1') {
+			this.setAccountName(this.promptEnterAccountName());
+		} else if (choice == '2') {
+			this.promptEnterAccountOverdraftIncrease();
+		} else if (choice == '3') {
+			this.promptEnterAccountOverdraftdecrease();
+		}
+	}
+
 	
 	
 	

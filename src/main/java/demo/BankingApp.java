@@ -17,21 +17,10 @@ public class BankingApp {
 		Customer bod1 = new Customer("bod1");
 		tel.addCustomer(bod1);
 		
-		Current test = new Current();
+		Saving test = new Saving();
 		test.tellerOpenAccount();
-		test.removeFunds(10);
-		test.promptEnterAccountOverdraftdecrease();
+		test.tellerUpdateAccount();
 		test.getStatement();
-		//tell open account has to get cutomer!
-		/*
-		tel.openAccount();
-		tel.openAccount();
-		tel.updateAccount();
-		
-		for (Account acc : bod1.getAccounts()){
-			acc.getStatement();
-		}
-		*/
 		
 
 	}

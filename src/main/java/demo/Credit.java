@@ -38,56 +38,55 @@ public class Credit extends Account implements Transferable {
 	@Override
 	public void tellerOpenAccount() { 
 		this.setAccountName(this.promptEnterAccountName());
-		this.addFunds(this.promptEnterAccountBalance());
-		this.setCreditLimit(this.promptEnterNewCreditLimit());
+		this.promptEnterCreditLimitIncrease();
 	}
+	
+
+	public char tellerUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1 - Account Name");
+		System.out.println("2 - Increase Credit Limit");
+		System.out.println("3 - Reduce Credit Limit");
+		System.out.println("E - Exit");
+		char updateMenu = sc.next().toCharArray()[0];
+		while (updateMenu != '1' && updateMenu != '2' && updateMenu != '3' && 
+				updateMenu != 'E' && updateMenu != 'e'){
+			System.out.println("Please setect a valid option:");
+			System.out.println("1 - Account Name");
+			System.out.println("2 - Increase Credit Limit");
+			System.out.println("3 - Reduce Credit Limit");
+			System.out.println("E - Exit");
+			updateMenu = sc.next().toCharArray()[0];
+		}
+		return updateMenu;
+	}
+
+	
 	
 	@Override
 	public void tellerUpdateAccount() { 
-		this.setAccountName(this.promptEnterAccountName());
-		double requestedUpdate = this.promptEnterNewCreditLimit();;
-		if (requestedUpdate > this.getCreditLimit()) {
-			this.increaseCreditLimit(requestedUpdate);
-		} else if (requestedUpdate < this.getCreditLimit()) {
-			this.reduceCreditLimit(requestedUpdate);
+		char choice = this.tellerUpdateMenu();
+		if (choice == '1') {
+			this.setAccountName(this.promptEnterAccountName());
+		} else if (choice == '2') {
+			this.promptEnterCreditLimitIncrease();
+		} else if (choice == '3') {
+			this.promptEnterCreditLimitDecrease();
 		}
-		//
-		//reduceCreditLimit
-		System.out.println("Needs setting up - Need to update credit limit");
-	}
-
-
-	//https://stackoverflow.com/questions/21783914/how-to-call-recursively-a-method-in-a-try-catch-block
-	public double promptEnterNewCreditLimit() {
-		Scanner sc = new Scanner(System.in);
-		double crdLimStr =0.0;
-		
-		System.out.println("Enter Credit Limit (hit enter for 0):");
-		
-
-		
-
-		return crdLimStr;
 	}
 
 	
-	public double promptEnterCreditLimit() {
-		Scanner sc = new Scanner(System.in);
-		String crdLimStr;
-		double crdLim = 0.0;
-		try {
-			System.out.println("Enter Credit Limit (hit enter to keep existing):");
-			crdLimStr = sc.nextLine();
-		
-			
-		} catch (NumberFormatException e) {
-			this.promptEnterCreditLimit();
-		}
-		return crdLim;
+
+	public void promptEnterCreditLimitIncrease() {
+		System.out.println("Enter new credit limit");
+		this.increaseCreditLimit(this.getValidAmount());		
 	}
+
 	
-	
-	
+	public void promptEnterCreditLimitDecrease() {
+		System.out.println("Enter new credit limit");
+		this.reduceCreditLimit(this.getValidAmount());		
+	}
 	
 	
 	
