@@ -16,13 +16,9 @@ public class BankingApp {
 
 		Customer bod1 = new Customer("bod1");
 		tel.addCustomer(bod1);
-		
-		Saving test = new Saving();
-		test.tellerOpenAccount();
-		test.tellerUpdateAccount();
-		test.getStatement();
-		
-
+		tel.tellerLogon();
+		tel.tellerLogon();
+		tel.tellerLogon();
 	}
 	
 

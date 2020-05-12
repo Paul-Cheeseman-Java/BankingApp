@@ -28,6 +28,20 @@ public class Teller {
 		}
 	}
 
+	
+	public void tellerLogon() {
+		System.out.println("Welcome Teller (id: " +this.getId() + ")");
+		String choice = Account.actionMenu();
+		if (choice.equals("Open")) {
+			this.openAccount();
+		} else if (choice.equals("Update")) {
+			this.updateAccount();
+		} else if (choice.equals("Close")) {
+			this.updateAccount();
+		} 
+	}
+	
+	
 	public int promptEnterCustomerID() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Customer ID:");
