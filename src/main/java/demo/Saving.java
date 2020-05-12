@@ -27,12 +27,28 @@ public class Saving extends Account {
 	}
 	
 	
-	public static Account customerOpenAccount() {
-		Saving newAcc = new Saving();
-		newAcc.setAccountName(newAcc.promptEnterAccountName());
-		System.out.println("Saving account open");
-		return newAcc;
+	@Override
+	public void custOpenAccount() { 
+	//	this.setAccountName(this.promptEnterNewAccountName());
 	}
+	
+	@Override
+	public void custUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+	}
+
+	
+	@Override
+	public void tellerOpenAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		this.addFunds(this.promptEnterAccountBalance());
+	}
+	
+	@Override
+	public void tellerUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+	}
+
 	
 	@Override
 	public boolean removeFunds(double amount) {

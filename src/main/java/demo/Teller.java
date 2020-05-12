@@ -3,7 +3,7 @@ package demo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Teller implements Updateable {
+public class Teller {
 	
 	private static int idNumber = 1; 
 	
@@ -61,10 +61,6 @@ public class Teller implements Updateable {
 	}
 	
 	
-	//public void openAccount() {}
-	public void updateAccount() {}
-	public void closeAccount() {}
-
 	
 	public Customer obtainValidCustomer() {
 		int valCust = this.promptEnterCustomerID();
@@ -77,38 +73,27 @@ public class Teller implements Updateable {
 	
 
 	
-	public void openAccount() {
-		//Just need to point to the returned variable
+	public void openAccount() { 
 		Customer customer = this.obtainValidCustomer();
-	
 		System.out.println("Which type of account would you like to open?");
-
 		String accType = Account.selectAccountTypeMenu();
-		
-		if (accType == "Current") {
-			Current newAcc = new Current();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			customer.addAccount(newAcc);
-		} else if (accType == "Credit") {
-			Credit newAcc = new Credit();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			customer.addAccount(newAcc);
-		} else if (accType == "Saving") {
-			Saving newAcc = new Saving();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			customer.addAccount(newAcc);
-		}
-		System.out.println("New " +accType+ " account opened");
+		Account newAcc = GetAccountFactory.getAccount(accType);
+		newAcc.tellerOpenAccount();
+		customer.addAccount(newAcc);
+		System.out.println("New " + accType + " account opened");
+
 	}
+
 	
-	/*
 	public void closeAccount() {
-		Account accToClose = Account.selectAccountMenu(this.getAccounts());
-		if (this.getAccount(accToClose.getAccountNumber()) != null) {
+		Customer customer = this.obtainValidCustomer();
+		System.out.println("Which type of account would you like to close?");
+		Account accToClose = Account.selectAccountMenu(customer.getAccounts());
+		if (customer.getAccount(accToClose.getAccountNumber()) != null) {
 			if (accToClose.closeAccount()) {
-				this.removeAccount(accToClose.getAccountNumber());
+				customer.removeAccount(accToClose.getAccountNumber());
 			} else {
-				this.closeAccount();
+				customer.closeAccount();
 			}
 		}
 		else {
@@ -118,15 +103,18 @@ public class Teller implements Updateable {
 	
 	
 	public void updateAccount() {
-		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
-		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
-			accToUpdate.setAccountName(accToUpdate.promptEnterAccountName());
+		Customer customer = this.obtainValidCustomer();
+		System.out.println("Which type of account would you like to update?");
+		Account accToUpdate = Account.selectAccountMenu(customer.getAccounts());
+		if (customer.getAccount(accToUpdate.getAccountNumber()) != null) {
+			accToUpdate.tellerUpdateAccount();
+			System.out.println("Account name updated to: " + accToUpdate.getAccountName());
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");
 		}
-	}
-	*/
+	}	
+	
 	
 	public int getId() {
 		return id;

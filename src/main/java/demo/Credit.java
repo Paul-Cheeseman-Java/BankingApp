@@ -1,6 +1,8 @@
 package demo;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Credit extends Account implements Transferable {
 
@@ -20,8 +22,75 @@ public class Credit extends Account implements Transferable {
 
 	}
 	
-	public void addTransaction(double amount, String type, int accountNumber) {}
-	public void listTransactions() {}
+	
+	@Override
+	public void custOpenAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		System.out.println("Needs setting up - Credit custOpen");
+	}
+	
+	@Override
+	public void custUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+	}
+
+	
+	@Override
+	public void tellerOpenAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		this.addFunds(this.promptEnterAccountBalance());
+		this.setCreditLimit(this.promptEnterNewCreditLimit());
+	}
+	
+	@Override
+	public void tellerUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		double requestedUpdate = this.promptEnterNewCreditLimit();;
+		if (requestedUpdate > this.getCreditLimit()) {
+			this.increaseCreditLimit(requestedUpdate);
+		} else if (requestedUpdate < this.getCreditLimit()) {
+			this.reduceCreditLimit(requestedUpdate);
+		}
+		//
+		//reduceCreditLimit
+		System.out.println("Needs setting up - Need to update credit limit");
+	}
+
+
+	//https://stackoverflow.com/questions/21783914/how-to-call-recursively-a-method-in-a-try-catch-block
+	public double promptEnterNewCreditLimit() {
+		Scanner sc = new Scanner(System.in);
+		double crdLimStr =0.0;
+		
+		System.out.println("Enter Credit Limit (hit enter for 0):");
+		
+
+		
+
+		return crdLimStr;
+	}
+
+	
+	public double promptEnterCreditLimit() {
+		Scanner sc = new Scanner(System.in);
+		String crdLimStr;
+		double crdLim = 0.0;
+		try {
+			System.out.println("Enter Credit Limit (hit enter to keep existing):");
+			crdLimStr = sc.nextLine();
+		
+			
+		} catch (NumberFormatException e) {
+			this.promptEnterCreditLimit();
+		}
+		return crdLim;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	public boolean transferCreditTo(Transferable txfrObj, double amount) {
@@ -96,13 +165,7 @@ public class Credit extends Account implements Transferable {
 		}
 	}
 	
-	public static Account customerOpenAccount() {
-		Credit newAcc = new Credit();
-		newAcc.setAccountName(newAcc.promptEnterAccountName());
-		System.out.println("Credit account open");
-		return newAcc;
-	}
-	
+
 	
 	
 	@Override

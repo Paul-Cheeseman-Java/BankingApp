@@ -1,13 +1,14 @@
 package demo;
 
 import java.math.BigDecimal;
+
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Account implements Comparable<Account> {
+public abstract class Account implements Comparable<Account> {
 	
 	private String name;
 	private int accountNumber;
@@ -39,6 +40,16 @@ public class Account implements Comparable<Account> {
 		setAccountNumber(accountNumberGenerator);
 	}
 
+	
+	abstract void custOpenAccount();	
+	
+	abstract void custUpdateAccount();	
+	
+	abstract void tellerOpenAccount();
+	
+	abstract void tellerUpdateAccount();
+	
+	
 	public static String actionMenu() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("What would you like to do?");
@@ -130,20 +141,7 @@ public class Account implements Comparable<Account> {
 	}
 
 	
-
-	
-	public boolean keepCurrentValue(String str) {
-		if (str.length() == 0 && this.getAccountName() != null) {
-			return true;
-		}
-		return false;
-	}
-	
-	
 	public boolean validAccountName(String str) {
-		if (keepCurrentValue(str)) {
-			return true;
-		}
 		if (str.length() >= 5) {
 			//Check for all blanks
 			char[] charArray = str.toCharArray();
@@ -156,55 +154,45 @@ public class Account implements Comparable<Account> {
 		return false;
 	}
 		
-	
+
 	public String promptEnterAccountName() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Account Name (5 chars minimum)");
+		System.out.println("Enter account name (5 chars minimum)");
 		String accName = sc.nextLine();
-
-		if (this.keepCurrentValue(accName)) {
-			return this.getAccountName();
-		}
-		
 		while (!this.validAccountName(accName)){
 			accName = this.promptEnterAccountName();
 		}
 		return accName;
 	}
 	
+	
+	public double getValidAmount() {
+		Scanner sc = new Scanner(System.in);
+		boolean valueNotValid = true;
+		double validAmount = 0.0;
+		while (valueNotValid) { 
+			while (!sc.hasNextDouble()) { 
+				System.out.println("Please enter a number!");
+				sc.next(); 
+			}
+			validAmount = sc.nextDouble();
+			if (validAmount >= 0) {
+				valueNotValid = false;
+			}
+			else {
+				System.out.println("Please enter a positive number!");
+			}
+		}
+		return validAmount;
+	}
+	
 
 	//https://stackoverflow.com/questions/3543729/how-to-check-that-a-string-is-parseable-to-a-double
 	public double promptEnterAccountBalance() {
-		Scanner sc = new Scanner(System.in);
-		String accStr;
-		double accBal = 0.0;
-		try {
-			System.out.println("Enter Account Balance (cannot be negative):");
-			accStr = sc.nextLine();
-			
-			System.out.println("Picked Up? " +this.keepCurrentValue(String.valueOf(accStr)));
-			if (this.keepCurrentValue(String.valueOf(accStr))) {
-				return this.getBalance();	
-
-			} 
-			else {
-				accBal = Double.parseDouble(accStr);
-				while (accBal < 0){
-					System.out.println("Enter Account Balance (needs to be numeric):");
-					accBal = sc.nextDouble();
-
-					if (this.keepCurrentValue(String.valueOf(accBal))) {
-						return this.getBalance();	
-					}
-				}
-			}
-		} catch (NumberFormatException e) {
-			this.promptEnterAccountBalance();
-		}
-		return accBal;
+		System.out.println("Enter Account Balance");
+		return this.getValidAmount();
 	}
-
-		
+	
 	
 	public boolean isCloseable() {
 		return this.getBalance() == 0.0;
@@ -241,65 +229,6 @@ public class Account implements Comparable<Account> {
 	public boolean isTransferable() {
 		return this instanceof Transferable;
 	}
-	
-	public boolean isCurrent() {
-		return this instanceof Current;
-	}
-	
-	public boolean isCredit() {
-		return this instanceof Credit;
-	}
-	
-	
-	public boolean changeOverdraftTo(double amount) {
-		if(this.isCurrent()) {
-			Current currentAccount = (Current)this;
-			currentAccount.increaseOverdraftLimit(amount);
-			return true;
-		}
-		else {
-			System.out.println(noOverdraftOnAccountTypeMsg());
-			return false;
-		}
-	}
-
-	public String noOverdraftOnAccountTypeMsg() {
-		return "You cannot have an overdraft on this account type";
-	}
-
-	
-	public boolean increaseCreditLimitTo(double amount) {
-		if(this.isCredit()) {
-			Credit creditAccount = (Credit)this;
-			creditAccount.increaseCreditLimit(amount);
-			return true;
-		}
-		else {
-			System.out.println(noCreditOnAccountTypeMsg());
-			return false;
-		}
-	}
-	
-	
-	public boolean reduceCreditLimitTo(double amount) {
-		if(this.isCredit()) {
-			Credit creditAccount = (Credit)this;
-			creditAccount.reduceCreditLimit(amount);
-			return true;
-		}
-		else {
-			System.out.println(noCreditOnAccountTypeMsg());
-			return false;
-		}
-	}
-	
-	
-	public String noCreditOnAccountTypeMsg() {
-		return "You cannot have a credit limit on this account type";
-	}
-
-	
-	
 	
 	
 	public boolean makeTransferTo(Account account, String type, double amount) {

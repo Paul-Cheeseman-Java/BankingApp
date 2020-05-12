@@ -3,7 +3,7 @@ package demo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Customer implements Updateable {
+public class Customer {
 	
 	private static int idNumber = 1; 
 	
@@ -20,6 +20,7 @@ public class Customer implements Updateable {
 	}
 	
 	
+	/*
 	public void cutomerMenu() {
 		String action = Account.actionMenu();
 		if (action.equals("Open")) {
@@ -32,7 +33,7 @@ public class Customer implements Updateable {
 			//exit app
 		}
 	}
-
+	*/
 	
 	
 	
@@ -55,28 +56,30 @@ public class Customer implements Updateable {
 		return accounts;
 	}
 	
-
-
 	public void openAccount() { 
 		System.out.println("Which type of account would you like to open?");
 		String accType = Account.selectAccountTypeMenu();
-		if (accType == "Current") {
-			Current newAcc = new Current();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			this.addAccount(newAcc);
-		} else if (accType == "Credit") {
-			Credit newAcc = new Credit();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			this.addAccount(newAcc);
-		} else if (accType == "Saving") {
-			Saving newAcc = new Saving();
-			newAcc.setAccountName(newAcc.promptEnterAccountName());
-			this.addAccount(newAcc);
-		}
+		Account newAcc = GetAccountFactory.getAccount(accType);
+		newAcc.custOpenAccount();
+		this.addAccount(newAcc);
 		System.out.println("New " + accType + " account opened");
 
 	}
+	
 
+	public void updateAccount() {
+		System.out.println("Which type of account would you like to update?");
+		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
+		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
+			accToUpdate.custUpdateAccount();
+			System.out.println("Account name updated to: " + accToUpdate.getAccountName());
+		}
+		else {
+			System.out.println("Sorry, that account does not exist");
+		}
+	}
+	
+	
 	public void closeAccount() {
 		System.out.println("Which type of account would you like to close?");
 		Account accToClose = Account.selectAccountMenu(this.getAccounts());
@@ -86,19 +89,6 @@ public class Customer implements Updateable {
 			} else {
 				this.closeAccount();
 			}
-		}
-		else {
-			System.out.println("Sorry, that account does not exist");
-		}
-	}
-	
-	
-	public void updateAccount() {
-		System.out.println("Which type of account would you like to update?");
-		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
-		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
-			accToUpdate.setAccountName(accToUpdate.promptEnterAccountName());
-			System.out.println("New account name is " + accToUpdate.getAccountName());
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");

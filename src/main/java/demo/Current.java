@@ -26,7 +26,47 @@ public class Current extends Account implements Transferable {
 		return String.format("%" + 7 + "s", val);
 	}
 
+	
+	@Override
+	public void custOpenAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+	}
+	
+	@Override
+	public void custUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+	}
 
+	
+	@Override
+	public void tellerOpenAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		this.addFunds(this.promptEnterAccountBalance());
+		this.promptEnterAccountOverdraftIncrease();
+	}
+	
+	//tellerUpdateMenu (need a customer one??)
+	//What would you like to update
+	//Account name
+	//Credit limit?
+	
+	@Override
+	public void tellerUpdateAccount() { 
+		this.setAccountName(this.promptEnterAccountName());
+		/*
+		double requestedUpdate = this.promptEnterAccountOverdraft();
+		if (requestedUpdate > this.getOverdraft()) {
+			this.increaseOverdraftLimit(requestedUpdate);
+		} else if (requestedUpdate < this.getOverdraft()) {
+			this.reduceOverdraftLimit(requestedUpdate);
+		}
+		*/
+		
+	}
+
+	
+	
+	
 	
 	@Override
 	public void getStatement(){
@@ -115,41 +155,20 @@ public class Current extends Account implements Transferable {
 		}
 	}
 	
+	
+	public void promptEnterAccountOverdraftIncrease() {
+		System.out.println("Enter amount of overdraft increase:");
+		this.increaseOverdraftLimit(this.getValidAmount());
+	}
+	
+	public void promptEnterAccountOverdraftdecrease() {
+		System.out.println("Enter amount of overdraft decrease:");
+		this.reduceOverdraftLimit(this.getValidAmount());
+	}
 
-	public double promptEnterAccountOverdraft() {
-		Scanner sc = new Scanner(System.in);
-		double accOverD = 0.0;
-		try {
-			System.out.println("Enter Account Balance (cannot be negative):");
-			accOverD = (double)sc.nextDouble();
-			while (accOverD < 0){
-				System.out.println("Enter Account Balance (needs to be numeric):");
-				accOverD = sc.nextDouble();
+	
+	
 
-			}
-		} catch (InputMismatchException e) {
-			this.promptEnterAccountOverdraft();
-		}
-		return accOverD;
-	}
-	
-	
-	public static Account customerOpenAccount() {
-		Current newAcc = new Current();
-		newAcc.setAccountName(newAcc.promptEnterAccountName());
-		System.out.println("Current account open");
-		return newAcc;
-	}
-	
-	
-	public Account tellerOpenAccount() {
-		Current newAcc = new Current();
-		newAcc.setAccountName(newAcc.promptEnterAccountName());
-		newAcc.increaseOverdraftLimit(promptEnterAccountOverdraft());
-		return newAcc;
-	}
-	
-	
 	
 	private String getInOverdraftMsg() {
 		return "You are now in your overdraft on your " +getAccountName()+ " current account with £ " + getAvailableFunds() + " remaining";
