@@ -29,7 +29,7 @@ public class Saving extends Account {
 	
 	@Override
 	public void custOpenAccount() { 
-	//	this.setAccountName(this.promptEnterNewAccountName());
+		this.setAccountName(this.promptEnterAccountName());
 	}
 	
 	@Override

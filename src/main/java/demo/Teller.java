@@ -37,7 +37,7 @@ public class Teller {
 		} else if (choice.equals("Update")) {
 			this.updateAccount();
 		} else if (choice.equals("Close")) {
-			this.updateAccount();
+			this.closeAccount();
 		} 
 	}
 	
@@ -89,7 +89,7 @@ public class Teller {
 	
 	public void openAccount() { 
 		Customer customer = this.obtainValidCustomer();
-		System.out.println("Which type of account would you like to open?");
+		System.out.println("Which account would you like to open?");
 		String accType = Account.selectAccountTypeMenu();
 		Account newAcc = GetAccountFactory.getAccount(accType);
 		newAcc.tellerOpenAccount();
@@ -101,7 +101,7 @@ public class Teller {
 	
 	public void closeAccount() {
 		Customer customer = this.obtainValidCustomer();
-		System.out.println("Which type of account would you like to close?");
+		System.out.println("Which account would you like to close?");
 		Account accToClose = Account.selectAccountMenu(customer.getAccounts());
 		if (customer.getAccount(accToClose.getAccountNumber()) != null) {
 			if (accToClose.closeAccount()) {

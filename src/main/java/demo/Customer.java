@@ -20,20 +20,17 @@ public class Customer {
 	}
 	
 	
-	/*
-	public void cutomerMenu() {
-		String action = Account.actionMenu();
-		if (action.equals("Open")) {
+	public void customerLogon() {
+		System.out.println("Welcome " +this.getName() + " (id: " +this.getId() + ")");
+		String choice = Account.actionMenu();
+		if (choice.equals("Open")) {
 			this.openAccount();
-		} else if (action.equals("Update")) {
+		} else if (choice.equals("Update")) {
 			this.updateAccount();
-		} else if (action.equals("Close")) {
+		} else if (choice.equals("Close")) {
 			this.closeAccount();
-		} else if (action.equals("Close")) {
-			//exit app
-		}
+		} 
 	}
-	*/
 	
 	
 	
@@ -68,7 +65,7 @@ public class Customer {
 	
 
 	public void updateAccount() {
-		System.out.println("Which type of account would you like to update?");
+		System.out.println("Which account would you like to update?");
 		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
 		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
 			accToUpdate.custUpdateAccount();
@@ -81,7 +78,7 @@ public class Customer {
 	
 	
 	public void closeAccount() {
-		System.out.println("Which type of account would you like to close?");
+		System.out.println("Which account would you like to close?");
 		Account accToClose = Account.selectAccountMenu(this.getAccounts());
 		if (this.getAccount(accToClose.getAccountNumber()) != null) {
 			if (accToClose.closeAccount()) {
