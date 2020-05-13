@@ -38,6 +38,8 @@ public class Teller {
 			this.updateAccount();
 		} else if (choice.equals("Close")) {
 			this.closeAccount();
+		} else if (choice.equals("Statement")) {
+			this.statementForAccount();
 		} 
 	}
 	
@@ -94,8 +96,7 @@ public class Teller {
 		Account newAcc = GetAccountFactory.getAccount(accType);
 		newAcc.tellerOpenAccount();
 		customer.addAccount(newAcc);
-		System.out.println("New " + accType + " account opened");
-
+		System.out.println("New " + accType + " account called " +newAcc.getAccountName() +" opened");
 	}
 
 	
@@ -118,16 +119,31 @@ public class Teller {
 	
 	public void updateAccount() {
 		Customer customer = this.obtainValidCustomer();
-		System.out.println("Which type of account would you like to update?");
+		System.out.println("Which account would you like to update?");
 		Account accToUpdate = Account.selectAccountMenu(customer.getAccounts());
 		if (customer.getAccount(accToUpdate.getAccountNumber()) != null) {
 			accToUpdate.tellerUpdateAccount();
-			System.out.println("Account name updated to: " + accToUpdate.getAccountName());
+			System.out.println("Account name updated");
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");
 		}
 	}	
+	
+	public void statementForAccount() {
+		Customer customer = this.obtainValidCustomer();
+		System.out.println("Which account statement would you like to see?");
+		Account accStmt = Account.selectAccountMenu(customer.getAccounts());
+		if (customer.getAccount(accStmt.getAccountNumber()) != null) {
+			accStmt.getStatement();
+		}
+		else {
+			System.out.println("Sorry, that account does not exist");
+		}
+	}	
+	
+	
+	
 	
 	
 	public int getId() {

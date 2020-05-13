@@ -16,9 +16,9 @@ public class BankingApp {
 
 		Customer bod1 = new Customer("bod1");
 		tel.addCustomer(bod1);
-		bod1.customerLogon();
-		bod1.customerLogon();
-		bod1.customerLogon();
+		tel.tellerLogon();
+		tel.tellerLogon();
+		tel.tellerLogon();
 	}
 	
 

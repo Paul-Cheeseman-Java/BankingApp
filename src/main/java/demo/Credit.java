@@ -42,35 +42,63 @@ public class Credit extends Account implements Transferable {
 	}
 	
 
-	public char tellerUpdateMenu() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("1 - Account Name");
-		System.out.println("2 - Increase Credit Limit");
-		System.out.println("3 - Reduce Credit Limit");
-		System.out.println("E - Exit");
-		char updateMenu = sc.next().toCharArray()[0];
-		while (updateMenu != '1' && updateMenu != '2' && updateMenu != '3' && 
-				updateMenu != 'E' && updateMenu != 'e'){
-			System.out.println("Please setect a valid option:");
-			System.out.println("1 - Account Name");
-			System.out.println("2 - Increase Credit Limit");
-			System.out.println("3 - Reduce Credit Limit");
-			System.out.println("E - Exit");
-			updateMenu = sc.next().toCharArray()[0];
-		}
-		return updateMenu;
-	}
-
 	
+	@Override
+	public String tellerUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What would you like to do?");
+		System.out.println("1 - Update Account Name");
+		System.out.println("2 - Add Funds");
+		System.out.println("3 - Remove Funds");
+		System.out.println("4 - Increase Credit Limit");
+		System.out.println("5 - Reduce Credit Limit");
+		System.out.println("0 - Exit");
+		char actionMenu = sc.next().toCharArray()[0];
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '4' 
+				&& actionMenu != '5'  && actionMenu != '0'){
+			System.out.println("Please select a valid option:");
+			System.out.println("1 - Update Account Name");
+			System.out.println("2 - Add Funds");
+			System.out.println("3 - Remove Funds");
+			System.out.println("4 - Increase Credit Limit");
+			System.out.println("5 - Reduce Credit Limit");
+			System.out.println("0 - Exit");
+			actionMenu = sc.next().toCharArray()[0];
+		}
+		String actType = "";
+		if (actionMenu == '1') {
+			actType = "Update Name";
+		}
+		else if (actionMenu == '2') {
+			actType = "Add Funds";
+		}
+		else if (actionMenu == '3') {
+			actType = "Remove Funds";
+		}
+		else if (actionMenu == '4') {
+			actType = "Increase CL";
+		}
+		else if (actionMenu == '5') {
+			actType = "Decrease CL";
+		}
+		else if (actionMenu == '0') {
+			actType = "Exit";
+		}
+		return actType;
+	}
 	
 	@Override
 	public void tellerUpdateAccount() { 
-		char choice = this.tellerUpdateMenu();
-		if (choice == '1') {
+		String choice = this.tellerUpdateMenu();
+		if (choice.equals("Update Name")) {
 			this.setAccountName(this.promptEnterAccountName());
-		} else if (choice == '2') {
+		} else if (choice.equals("Add Funds")) {
+			this.promptEnterAccountAddFunds();
+		} else if (choice.equals("Remove Funds")) {
+			this.promptEnterAccountRemoveFunds();
+		} else if (choice.equals("Increase CL")) {
 			this.promptEnterCreditLimitIncrease();
-		} else if (choice == '3') {
+		} else if (choice.equals("Decrease CL")) {
 			this.promptEnterCreditLimitDecrease();
 		}
 	}

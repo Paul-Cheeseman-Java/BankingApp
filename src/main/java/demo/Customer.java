@@ -29,6 +29,8 @@ public class Customer {
 			this.updateAccount();
 		} else if (choice.equals("Close")) {
 			this.closeAccount();
+		} else if (choice.equals("Statement")) {
+			this.statementForAccount();
 		} 
 	}
 	
@@ -43,6 +45,45 @@ public class Customer {
 		return this.getAccounts().size();
 	}
 		
+	
+
+
+	
+	public String updateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What would you like to do?");
+		System.out.println("1 - Update Account Name");
+		System.out.println("2 - Add Funds");
+		System.out.println("3 - Remove Funds");
+		System.out.println("0 - Exit");
+		char actionMenu = sc.next().toCharArray()[0];
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '0'){
+			System.out.println("Please select a valid option:");
+			System.out.println("1 - Update Account Name");
+			System.out.println("2 - Add Funds");
+			System.out.println("3 - Remove Funds");
+			System.out.println("0 - Exit");
+			actionMenu = sc.next().toCharArray()[0];
+		}
+		String actType = "";
+		if (actionMenu == '1') {
+			actType = "Update Name";
+		}
+		else if (actionMenu == '2') {
+			actType = "Add Funds";
+		}
+		else if (actionMenu == '3') {
+			actType = "Remove Funds";
+		}
+		else if (actionMenu == '0') {
+			actType = "Exit";
+		}
+		return actType;
+	}
+
+	
+	
+	
 	public ArrayList<Account> listAccounts(String accountType) {
 		ArrayList<Account> specificTypeList = new ArrayList<Account>();
 		for (Account account : accounts){
@@ -54,13 +95,12 @@ public class Customer {
 	}
 	
 	public void openAccount() { 
-		System.out.println("Which type of account would you like to open?");
+		System.out.println("Which account would you like to open?");
 		String accType = Account.selectAccountTypeMenu();
 		Account newAcc = GetAccountFactory.getAccount(accType);
 		newAcc.custOpenAccount();
 		this.addAccount(newAcc);
-		System.out.println("New " + accType + " account opened");
-
+		System.out.println("New " + accType + " account called " +newAcc.getAccountName() +" opened");
 	}
 	
 
@@ -91,6 +131,20 @@ public class Customer {
 			System.out.println("Sorry, that account does not exist");
 		}
 	}
+	
+	public void statementForAccount() {
+		System.out.println("Which account statement would you like to see?");
+		Account accStmt = Account.selectAccountMenu(this.getAccounts());
+		if (this.getAccount(accStmt.getAccountNumber()) != null) {
+			accStmt.getStatement();
+		}
+		else {
+			System.out.println("Sorry, that account does not exist");
+		}
+	}
+	
+	
+	
 	
 	
 	public void addAccount(Account account) {

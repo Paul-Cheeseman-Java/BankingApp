@@ -43,7 +43,8 @@ public abstract class Account implements Comparable<Account> {
 	
 	abstract void custOpenAccount();	
 	
-	abstract void custUpdateAccount();	
+	//No need to be abstract at the moment as customers have same options on all accounts
+	//abstract void custUpdateAccount();	
 	
 	abstract void tellerOpenAccount();
 	
@@ -56,13 +57,15 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("1 - Open an account");
 		System.out.println("2 - Update an account");
 		System.out.println("3 - Close an account");
+		System.out.println("4 - View a statement for an account");
 		System.out.println("0 - Exit");
 		char actionMenu = sc.next().toCharArray()[0];
-		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '0'){
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '4' && actionMenu != '0'){
 			System.out.println("Please select a valid option:");
-			System.out.println("1 - Current an account");
-			System.out.println("2 - Credit an account");
-			System.out.println("3 - Saving an account");
+			System.out.println("1 - Open an account");
+			System.out.println("2 - Update an account");
+			System.out.println("3 - Close an account");
+			System.out.println("4 - View a statement for an account");
 			System.out.println("0 - Exit");
 			actionMenu = sc.next().toCharArray()[0];
 		}
@@ -76,13 +79,93 @@ public abstract class Account implements Comparable<Account> {
 		else if (actionMenu == '3') {
 			actType = "Close";
 		}
+		else if (actionMenu == '4') {
+			actType = "Statement";
+		}
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
 		return actType;
 	}
 	
-		
+
+	public void custUpdateAccount() { 
+		String choice = this.custUpdateMenu();
+		if (choice.equals("Update Name")) {
+			this.setAccountName(this.promptEnterAccountName());
+		} else if (choice.equals("Add Funds")) {
+			this.promptEnterAccountAddFunds();
+		} else if (choice.equals("Remove Funds")) {
+			this.promptEnterAccountRemoveFunds();
+		}
+	}
+
+	
+	public String custUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What would you like to do?");
+		System.out.println("1 - Update Account Name");
+		System.out.println("2 - Add Funds");
+		System.out.println("3 - Remove Funds");
+		System.out.println("0 - Exit");
+		char actionMenu = sc.next().toCharArray()[0];
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '0'){
+			System.out.println("Please select a valid option:");
+			System.out.println("1 - Update Account Name");
+			System.out.println("2 - Add Funds");
+			System.out.println("3 - Remove Funds");
+			System.out.println("0 - Exit");
+			actionMenu = sc.next().toCharArray()[0];
+		}
+		String actType = "";
+		if (actionMenu == '1') {
+			actType = "Update Name";
+		}
+		else if (actionMenu == '2') {
+			actType = "Add Funds";
+		}
+		else if (actionMenu == '3') {
+			actType = "Remove Funds";
+		}
+		else if (actionMenu == '0') {
+			actType = "Exit";
+		}
+		return actType;
+	}
+
+
+	public String tellerUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What would you like to do?");
+		System.out.println("1 - Update Account Name");
+		System.out.println("2 - Add Funds");
+		System.out.println("3 - Remove Funds");
+		System.out.println("0 - Exit");
+		char actionMenu = sc.next().toCharArray()[0];
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '0'){
+			System.out.println("Please select a valid option:");
+			System.out.println("1 - Update Account Name");
+			System.out.println("2 - Add Funds");
+			System.out.println("3 - Remove Funds");
+			System.out.println("0 - Exit");
+			actionMenu = sc.next().toCharArray()[0];
+		}
+		String actType = "";
+		if (actionMenu == '1') {
+			actType = "Update Name";
+		}
+		else if (actionMenu == '2') {
+			actType = "Add Funds";
+		}
+		else if (actionMenu == '3') {
+			actType = "Remove Funds";
+		}
+		else if (actionMenu == '0') {
+			actType = "Exit";
+		}
+		return actType;
+	}
+
 	
 	public static String selectAccountTypeMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -145,6 +228,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 
 	
+	
 	public boolean validAccountName(String str) {
 		if (str.length() >= 5) {
 			//Check for all blanks
@@ -168,6 +252,23 @@ public abstract class Account implements Comparable<Account> {
 		}
 		return accName;
 	}
+	
+
+	public void promptEnterAccountAddFunds() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter amount of funds to be added");
+		double addVal = this.getValidAmount();
+		this.addFunds(addVal);
+	}
+	
+	
+	public void promptEnterAccountRemoveFunds() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter amount of funds to be added");
+		double addVal = this.getValidAmount();
+		this.addFunds(addVal);
+	}
+	
 	
 	
 	public double getValidAmount() {
