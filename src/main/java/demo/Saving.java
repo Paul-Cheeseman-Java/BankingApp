@@ -146,7 +146,6 @@ public class Saving extends Account {
 			}
 		} 
 		else {
-			System.out.println(getInsufficientFundsMsg());
 			return false;
 		}
 	}

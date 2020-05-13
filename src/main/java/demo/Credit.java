@@ -209,12 +209,14 @@ public class Credit extends Account implements Transferable {
 		System.out.println("---------------------------------------------------------------|");
 		System.out.println("              Credit Limit: " +Credit.creditLineFormat(this.getCreditLimit()) +"                            |");           
 		System.out.println("---------------------------------------------------------------|");
-		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
+		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Crd Avail |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
 	}
 	
-	
+	public boolean isCloseable() {
+		return this.getBalance() == this.getCreditLimit();
+	}
 
 	public void increaseCreditLimit(double amount) {
 		this.setBalance(this.getBalance() + amount);
