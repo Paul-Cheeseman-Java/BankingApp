@@ -1,5 +1,6 @@
 package demo;
 
+import java.util.concurrent.TimeUnit;
 
 public class BankingApp {
 
@@ -16,9 +17,42 @@ public class BankingApp {
 
 		Customer bod1 = new Customer("bod1");
 		tel.addCustomer(bod1);
-		tel.tellerLogon();
-		tel.tellerLogon();
-		tel.tellerLogon();
+
+		Basic testAcc = new Basic();
+		testAcc.setAccountName("Basic Test");
+
+		testAcc.addTxn(1, "Credit");
+		try {
+			TimeUnit.SECONDS.sleep(1);			
+		} catch (Exception e) {
+			
+		}
+
+		testAcc.addTxn(2, "Credit");
+		testAcc.addTxn(3, "Debit");
+		try {
+			TimeUnit.SECONDS.sleep(1);			
+		} catch (Exception e) {
+			
+		}
+		testAcc.addTxn(4, "Credit");
+		testAcc.addTxn(5, "Credit");
+		testAcc.addTxn(6, "Debit");
+		try {
+			TimeUnit.SECONDS.sleep(1);			
+		} catch (Exception e) {
+			
+		}
+		
+		testAcc.getStatement();
+		
+		
+		/*
+		while (true) {
+			tel.tellerLogon();			
+		}
+		*/
+
 	}
 	
 

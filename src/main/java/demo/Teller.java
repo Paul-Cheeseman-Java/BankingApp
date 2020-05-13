@@ -123,7 +123,6 @@ public class Teller {
 		Account accToUpdate = Account.selectAccountMenu(customer.getAccounts());
 		if (customer.getAccount(accToUpdate.getAccountNumber()) != null) {
 			accToUpdate.tellerUpdateAccount();
-			System.out.println("Account name updated");
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");

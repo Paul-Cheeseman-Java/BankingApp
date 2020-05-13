@@ -44,7 +44,7 @@ public abstract class Account implements Comparable<Account> {
 	abstract void custOpenAccount();	
 	
 	//No need to be abstract at the moment as customers have same options on all accounts
-	//abstract void custUpdateAccount();	
+	abstract void custUpdateAccount();	
 	
 	abstract void tellerOpenAccount();
 	
@@ -89,18 +89,6 @@ public abstract class Account implements Comparable<Account> {
 	}
 	
 
-	public void custUpdateAccount() { 
-		String choice = this.custUpdateMenu();
-		if (choice.equals("Update Name")) {
-			this.setAccountName(this.promptEnterAccountName());
-		} else if (choice.equals("Add Funds")) {
-			this.promptEnterAccountAddFunds();
-		} else if (choice.equals("Remove Funds")) {
-			this.promptEnterAccountRemoveFunds();
-		}
-	}
-
-	
 	public String custUpdateMenu() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("What would you like to do?");
@@ -169,28 +157,34 @@ public abstract class Account implements Comparable<Account> {
 	
 	public static String selectAccountTypeMenu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1 - Current account");
-		System.out.println("2 - Credit account");
-		System.out.println("3 - Saving account");
+		System.out.println("1 - Basic account");
+		System.out.println("2 - Current account");
+		System.out.println("3 - Credit account");
+		System.out.println("4 - Saving account");
+
 		System.out.println("E - Exit");
 		char whichAccountMenu = sc.next().toCharArray()[0];
 		while (whichAccountMenu != '1' && whichAccountMenu != '2' && whichAccountMenu != '3' && 
-				whichAccountMenu != 'E' && whichAccountMenu != 'e'){
+				whichAccountMenu != '4' && whichAccountMenu != 'E' && whichAccountMenu != 'e'){
 			System.out.println("Please setect a valid option:");
-			System.out.println("1 - Current account");
-			System.out.println("2 - Credit account");
-			System.out.println("3 - Saving account");
+			System.out.println("1 - Basic account");
+			System.out.println("2 - Current account");
+			System.out.println("3 - Credit account");
+			System.out.println("4 - Saving account");
 			System.out.println("E - Exit");
 			whichAccountMenu = sc.next().toCharArray()[0];
 		}
 		String accType = "";
 		if (whichAccountMenu == '1') {
-			accType = "Current";
+			accType = "Basic";
 		}
 		else if (whichAccountMenu == '2') {
-			accType = "Credit";
+			accType = "Current";
 		}
 		else if (whichAccountMenu == '3') {
+			accType = "Credit";
+		}
+		else if (whichAccountMenu == '4') {
 			accType = "Saving";
 		}
 		return accType;
@@ -264,9 +258,9 @@ public abstract class Account implements Comparable<Account> {
 	
 	public void promptEnterAccountRemoveFunds() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter amount of funds to be added");
+		System.out.println("Enter amount of funds to be removed");
 		double addVal = this.getValidAmount();
-		this.addFunds(addVal);
+		this.removeFunds(addVal);
 	}
 	
 	
@@ -423,12 +417,13 @@ public abstract class Account implements Comparable<Account> {
 	
 	
 	public ArrayList<Txn> getTransactions(){
+		Collections.sort(txns);
 		return txns;
 	}
 
 
 	public void listTransactions(){
-		for (Txn txn : txns) {
+		for (Txn txn : this.getTransactions()) {
 			if (txn.getType().equals("Debit")) {
 				System.out.println(txn.getStrDate() + " |  " +txn.getStrTime()+ "  |   Debit   |   "  +Account.statementNumFormat(txn.getAmount())+ "  |   " +Account.statementNumFormat(Account.round(txn.getBalance(), 2)) + " |");
 			}

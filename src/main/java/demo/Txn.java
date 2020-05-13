@@ -20,7 +20,7 @@ public class Txn implements Comparable<Txn> {
 	
 	
 	public int compareTo(Txn transaction) {  
-		return date.compareTo(transaction.date);  
+		return transaction.date.compareTo(this.date); 
 	}
 
 
