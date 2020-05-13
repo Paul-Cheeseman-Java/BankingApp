@@ -206,7 +206,7 @@ public class Current extends Account implements Transferable {
 	}
 	
 	private boolean inOverdraft() {
-		return (this.getAvailableFunds() - this.getBalance()) < getOverdraft();
+		return (this.getBalance() < 0);
 	}
 
 	@Override
@@ -250,7 +250,7 @@ public class Current extends Account implements Transferable {
 
 	
 	private String getInOverdraftMsg() {
-		return "You are now in your overdraft on your " +getAccountName()+ " current account with £ " + getAvailableFunds() + " remaining";
+		return "You are now in your overdraft on your " +getAccountName()+ " current account with overdraft credit of £ " + getAvailableFunds() + " remaining";
 	}
 	
 	private String getReducedOverdraftMsg() {
