@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Bank {
 	
-	private String name;
-	private ArrayList<Customer> customers;
-	private ArrayList<Teller> tellers;	
+	private static String name;
+	private static ArrayList<Customer> customers;
+	private static ArrayList<Teller> tellers;	
 	/* HAVE I BEEN CONSISTENT THROUGH ALL CLASSES WITH USE OF this ANNOTATION???? */
 	
 	//Logon screen - Welcome etc, are you a Teller or Customer
@@ -20,8 +20,14 @@ public class Bank {
 	}
 	
 	
-	public void listCustomers() {
-		
+	public static Account findAccount(int accountNum) {
+		Account locatedAcc = null;
+		for (Customer customer: Bank.getCustomers()) {
+			if (customer.getAccountNumbers().contains(accountNum)) {
+				locatedAcc = customer.getAccount(accountNum);
+			}
+		}
+		return locatedAcc;
 	}
 
 
@@ -71,17 +77,17 @@ public class Bank {
 
 
 	public void setName(String name) {
-		this.name = name;
+		Bank.name = name;
 	}
 
 
-	public ArrayList<Customer> getCustomers() {
-		return customers;
+	public static ArrayList<Customer> getCustomers() {
+		return Bank.customers;
 	}
 
 
 	public void setCustomers(ArrayList<Customer> customers) {
-		this.customers = customers;
+		Bank.customers = customers;
 	}
 
 
@@ -91,7 +97,7 @@ public class Bank {
 
 
 	public void setTellers(ArrayList<Teller> tellers) {
-		this.tellers = tellers;
+		Bank.tellers = tellers;
 	}
 	
 

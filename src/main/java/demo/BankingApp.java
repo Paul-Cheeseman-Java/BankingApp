@@ -18,6 +18,7 @@ public class BankingApp {
 		Customer bod1 = new Customer("bod1");
 		tel.addCustomer(bod1);
 
+	
 		while (true) {
 			tel.tellerLogon();			
 		}

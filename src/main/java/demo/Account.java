@@ -51,6 +51,7 @@ public abstract class Account implements Comparable<Account> {
 	abstract void tellerUpdateAccount();
 	
 	
+	
 	public static String actionMenu() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("What would you like to do?");
@@ -285,6 +286,28 @@ public abstract class Account implements Comparable<Account> {
 		return validAmount;
 	}
 	
+	
+	public int getValidInt() {
+		Scanner sc = new Scanner(System.in);
+		boolean intNotValid = true;
+		int validInt = 0;
+		while (intNotValid) { 
+			while (!sc.hasNextInt()) { 
+				System.out.println("Please enter a number!");
+				sc.next(); 
+			}
+			validInt = sc.nextInt();
+			if (validInt >= 0) {
+				intNotValid = false;
+			}
+			else {
+				System.out.println("Please enter a positive number!");
+			}
+		}
+		return validInt;
+	}
+	
+	
 
 	//https://stackoverflow.com/questions/3543729/how-to-check-that-a-string-is-parseable-to-a-double
 	public double promptEnterAccountBalance() {
@@ -336,9 +359,6 @@ public abstract class Account implements Comparable<Account> {
 			Transferable transferFrom = (Transferable) this;
 			if (type.contentEquals("Credit")) {
 				transferFrom.transferCreditTo(transferTo, amount);
-			}
-			else if (type.contentEquals("Debit")) {
-				transferFrom.transferDebitTo(transferTo, amount);
 			}
 			return true;
 		}

@@ -1,7 +1,9 @@
 package demo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Customer {
 	
@@ -38,6 +40,15 @@ public class Customer {
 	
 	public ArrayList<Account> listAccounts() {
 		return accounts;
+	}
+	
+	
+	public Set<Integer> getAccountNumbers() {
+		Set<Integer> accNums = new HashSet<Integer>();
+		for (Account account : this.getAccounts()) {
+			accNums.add(account.getAccountNumber());
+		}
+		return accNums;
 	}
 	
 	
@@ -134,6 +145,8 @@ public class Customer {
 		return null;
 	}
 
+	
+	
 
 	public boolean renameAccount(int accountNum, String newName) {
 		Account accToChange = getAccount(accountNum); 

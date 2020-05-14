@@ -30,6 +30,25 @@ public class Credit extends Account implements Transferable {
 	}
 	
 
+	public void promptEnterTransferFunds() {
+		System.out.println("Enter the account number you wish to transfer funds to:");
+		int accountNum = this.getValidInt();
+		if (Bank.findAccount(accountNum) !=null) {
+			Account transferTo = Bank.findAccount(accountNum);
+			if (transferTo instanceof Transferable) {
+				Transferable transferable = (Transferable)transferTo; 
+				System.out.println("Enter the amount of the payment you'd like to make");
+				this.transferCreditTo(transferable, this.getValidAmount());			
+			}
+		}
+		else {
+			System.out.println("That is not a valid bank account number");
+		}
+
+	}
+	
+	
+	
 	@Override
 	public String custUpdateMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -37,13 +56,15 @@ public class Credit extends Account implements Transferable {
 		System.out.println("1 - Update Account Name");
 		System.out.println("2 - Add Funds");
 		System.out.println("3 - Remove Funds");
+		System.out.println("4 - Transfer Funds");
 		System.out.println("0 - Exit");
 		char actionMenu = sc.next().toCharArray()[0];
-		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '4' 
-				&& actionMenu != '5'  && actionMenu != '0'){
+		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && 
+				actionMenu != '4' && actionMenu != '0'){
 			System.out.println("1 - Update Account Name");
 			System.out.println("2 - Add Funds");
 			System.out.println("3 - Remove Funds");
+			System.out.println("4 - Transfer Funds");
 			System.out.println("0 - Exit");
 			actionMenu = sc.next().toCharArray()[0];
 		}
@@ -56,6 +77,9 @@ public class Credit extends Account implements Transferable {
 		}
 		else if (actionMenu == '3') {
 			actType = "Remove Funds";
+		}
+		else if (actionMenu == '4') {
+			actType = "Transfer Funds";
 		}
 		else if (actionMenu == '0') {
 			actType = "Exit";
@@ -72,6 +96,8 @@ public class Credit extends Account implements Transferable {
 			this.promptEnterAccountAddFunds();
 		} else if (choice.equals("Remove Funds")) {
 			this.promptEnterAccountRemoveFunds();
+		} else if (choice.equals("Transfer Funds")) {
+			this.promptEnterTransferFunds();
 		}
 	}
 	
@@ -90,8 +116,9 @@ public class Credit extends Account implements Transferable {
 		System.out.println("1 - Update Account Name");
 		System.out.println("2 - Add Funds");
 		System.out.println("3 - Remove Funds");
-		System.out.println("4 - Increase Credit Limit");
-		System.out.println("5 - Reduce Credit Limit");
+		System.out.println("4 - Transfer Funds");
+		System.out.println("5 - Increase Credit Limit");
+		System.out.println("6 - Reduce Credit Limit");
 		System.out.println("0 - Exit");
 		char actionMenu = sc.next().toCharArray()[0];
 		while (actionMenu != '1' && actionMenu != '2' && actionMenu != '3' && actionMenu != '4' 
@@ -100,8 +127,9 @@ public class Credit extends Account implements Transferable {
 			System.out.println("1 - Update Account Name");
 			System.out.println("2 - Add Funds");
 			System.out.println("3 - Remove Funds");
-			System.out.println("4 - Increase Credit Limit");
-			System.out.println("5 - Reduce Credit Limit");
+			System.out.println("4 - Transfer Funds");
+			System.out.println("5 - Increase Credit Limit");
+			System.out.println("6 - Reduce Credit Limit");
 			System.out.println("0 - Exit");
 			actionMenu = sc.next().toCharArray()[0];
 		}
@@ -116,9 +144,12 @@ public class Credit extends Account implements Transferable {
 			actType = "Remove Funds";
 		}
 		else if (actionMenu == '4') {
-			actType = "Increase CL";
+			actType = "Transfer Funds";
 		}
 		else if (actionMenu == '5') {
+			actType = "Increase CL";
+		}
+		else if (actionMenu == '6') {
 			actType = "Decrease CL";
 		}
 		else if (actionMenu == '0') {
@@ -136,6 +167,8 @@ public class Credit extends Account implements Transferable {
 			this.promptEnterAccountAddFunds();
 		} else if (choice.equals("Remove Funds")) {
 			this.promptEnterAccountRemoveFunds();
+		} else if (choice.equals("Transfer Funds")) {
+		this.promptEnterTransferFunds();
 		} else if (choice.equals("Increase CL")) {
 			this.promptEnterCreditLimitIncrease();
 		} else if (choice.equals("Decrease CL")) {
@@ -157,6 +190,10 @@ public class Credit extends Account implements Transferable {
 	}
 	
 	
+	public void promptEnterForMakePayment(Transferable txfrObj) {
+		System.out.println("Enter the amount you'd like to transfer:");
+		this.transferCreditTo(txfrObj, this.getValidAmount());
+	}
 	
 	
 	
@@ -175,26 +212,12 @@ public class Credit extends Account implements Transferable {
 		}
 	}
 	
-	public boolean transferDebitTo(Transferable txfrObj, double amount) {
-		if (txfrObj.recieveTransferedDebit(amount)) {
-			this.addFunds(amount);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}	
-	
 	
 	public boolean recieveTransferedCredit(double amount) {
 		return this.addFunds(amount);
 
 	}
 	
-	public boolean recieveTransferedDebit(double amount) {
-		return this.removeFunds(amount);
-	}
-
 	
 	public static String creditLineFormat(double val){
 		return String.format("%" + 7 + "s", val);
