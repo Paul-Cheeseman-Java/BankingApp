@@ -214,7 +214,7 @@ public abstract class Account implements Comparable<Account> {
 				return accountList.get((input-1));
 			}
 			else if (input == 0) {
-				System.out.println("Exit to main menu");				
+				return null;			
 			}
 		}
 		Account.selectAccountMenu(accountList);

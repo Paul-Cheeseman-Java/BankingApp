@@ -22,6 +22,9 @@ public class Customer {
 	}
 	
 	
+	
+	
+	
 	public void customerLogon() {
 		System.out.println("Welcome " +this.getName() + " (id: " +this.getId() + ")");
 		String choice = Account.actionMenu();
@@ -33,6 +36,8 @@ public class Customer {
 			this.closeAccount();
 		} else if (choice.equals("Statement")) {
 			this.statementForAccount();
+		} else if (choice.equals("Exit")) {
+			Bank.startApp();
 		} 
 	}
 	
@@ -72,21 +77,31 @@ public class Customer {
 		System.out.println("Which account would you like to open?");
 		String accType = Account.selectAccountTypeMenu();
 		Account newAcc = GetAccountFactory.getAccount(accType);
-		newAcc.custOpenAccount();
-		this.addAccount(newAcc);
-		System.out.println("New " + accType + " account called " +newAcc.getAccountName() +" opened");
-
+		if (newAcc == null) {
+			this.customerLogon();
+		}
+		else {
+			newAcc.custOpenAccount();
+			this.addAccount(newAcc);
+			System.out.println("New " + accType + " account called " +newAcc.getAccountName() +" opened");
+			this.customerLogon();			
+		}
 	}
 	
 
 	public void updateAccount() {
 		System.out.println("Which account would you like to update?");
 		Account accToUpdate = Account.selectAccountMenu(this.getAccounts());
+		if (accToUpdate == null) {
+			this.customerLogon();
+		}
 		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
 			accToUpdate.custUpdateAccount();
+			this.customerLogon();
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");
+			this.customerLogon();
 		}
 	}
 	
@@ -94,31 +109,38 @@ public class Customer {
 	public void closeAccount() {
 		System.out.println("Which account would you like to close?");
 		Account accToClose = Account.selectAccountMenu(this.getAccounts());
+		if (accToClose == null) {
+			this.customerLogon();
+		}
+
 		if (this.getAccount(accToClose.getAccountNumber()) != null) {
 			if (accToClose.closeAccount()) {
 				this.removeAccount(accToClose.getAccountNumber());
+				this.customerLogon();
 			} else {
 				this.closeAccount();
+				this.customerLogon();
 			}
 		}
 		else {
 			System.out.println("Sorry, that account does not exist");
+			this.customerLogon();
 		}
 	}
 	
 	public void statementForAccount() {
 		System.out.println("Which account statement would you like to see?");
 		Account accStmt = Account.selectAccountMenu(this.getAccounts());
-		if (this.getAccount(accStmt.getAccountNumber()) != null) {
+		
+		if(accStmt == null){
+			
+		}
+		
+		else {
 			accStmt.getStatement();
 		}
-		else {
-			System.out.println("Sorry, that account does not exist");
-		}
+
 	}
-	
-	
-	
 	
 	
 	public void addAccount(Account account) {

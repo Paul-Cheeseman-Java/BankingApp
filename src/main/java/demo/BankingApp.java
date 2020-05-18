@@ -13,16 +13,9 @@ public class BankingApp {
 	public static void main(String[] args) {
 
 		Bank BankOCheese = new Bank("BankOCheese");
-		Teller tel = new Teller(BankOCheese.getCustomers());
+		BankOCheese.addTeller();	//Add an initial teller with id of 1
+		BankOCheese.startApp();
 
-		Customer bod1 = new Customer("bod1");
-		tel.addCustomer(bod1);
-
-	
-		while (true) {
-			tel.tellerLogon();			
-		}
-	
 	}
 	
 
