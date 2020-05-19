@@ -423,11 +423,11 @@ public abstract class Account implements Comparable<Account> {
 	} 
 
 	public String getDebitMadeMsg(double amount) {
-		return "You have removed  £" +amount+ " from your " +name+ " account";
+		return "You have removed  £" +amount+ " from account" +name;
 	}
 	
 	public String getCreditMadeMsg(double amount) {
-		return "You have added £" +amount+ " to your " +name+ " account";
+		return "You have added £" +amount+ " to account" +name;
 	}
 	
 	public void setTransactions(ArrayList<Txn> txns){

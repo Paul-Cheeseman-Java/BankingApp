@@ -129,11 +129,12 @@ public class Customer {
 		Account accStmt = Account.selectAccountMenu(this.getAccounts());
 		
 		if(accStmt == null){
-			
+			this.customerLogon();
 		}
 		
 		else {
 			accStmt.getStatement();
+			this.customerLogon();
 		}
 
 	}

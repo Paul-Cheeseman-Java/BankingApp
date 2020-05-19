@@ -26,7 +26,6 @@ public class Credit extends Account implements Transferable {
 	@Override
 	public void custOpenAccount() { 
 		this.setAccountName(this.promptEnterAccountName());
-		System.out.println("Needs setting up - Credit custOpen");
 	}
 	
 
