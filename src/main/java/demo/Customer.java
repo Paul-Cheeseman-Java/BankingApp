@@ -95,12 +95,8 @@ public class Customer {
 		if (accToUpdate == null) {
 			this.customerLogon();
 		}
-		if (this.getAccount(accToUpdate.getAccountNumber()) != null) {
-			accToUpdate.custUpdateAccount();
-			this.customerLogon();
-		}
 		else {
-			System.out.println("Sorry, that account does not exist");
+			accToUpdate.custUpdateAccount();
 			this.customerLogon();
 		}
 	}

@@ -278,12 +278,8 @@ public class Teller {
 			this.tellerLogon();
 		}
 		
-		if (customer.getAccount(accToUpdate.getAccountNumber()) != null) {
-			accToUpdate.tellerUpdateAccount();
-			this.tellerLogon();
-		}
 		else {
-			System.out.println("Sorry, that account does not exist");
+			accToUpdate.tellerUpdateAccount();
 			this.tellerLogon();
 		}
 	}	

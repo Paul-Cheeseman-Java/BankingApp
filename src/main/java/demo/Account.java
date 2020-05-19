@@ -194,7 +194,6 @@ public abstract class Account implements Comparable<Account> {
 	
 
 	
-	
 
 	public static Account selectAccountMenu(ArrayList<Account> accountList) {
 		Scanner sc = new Scanner(System.in);
@@ -203,7 +202,7 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("Select the account:");
 		for (Account account : accountList) {
 			menuNum += 1;
-			System.out.println(menuNum + " - Account Number: " +account.getAccountNumber() + " - Account name: " +account.getAccountName());
+			System.out.println(menuNum + " - Account Number: " +Account.getFormattedAccountNumber(account.getAccountNumber()) + " - Account name: " +account.getAccountName());
 		}
 		System.out.println("0 - Exit");
 		if (sc.hasNextInt()){

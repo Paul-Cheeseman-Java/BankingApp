@@ -39,7 +39,10 @@ public class Credit extends Account implements Transferable {
 				Transferable transferable = (Transferable)transferTo; 
 				System.out.println("Enter the amount of the payment you'd like to make");
 				this.transferCreditTo(transferable, this.getValidAmount());			
+			} else {
+				System.out.println("You cannot transfer money to this account type");
 			}
+			
 		}
 		else {
 			System.out.println("That is not a valid bank account number");
