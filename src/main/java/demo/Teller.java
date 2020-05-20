@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class Teller {
 	
 	private static int idNumber = 1; 
-	
+
 	private int id;
 	private ArrayList<Customer> customers;
 	
-	public Teller() {
+	public Teller(ArrayList<Customer> bankCustomers) {
 		setId(idNumber);
 		idNumber += 1;
-		this.customers = Bank.getCustomers();
+		this.customers = bankCustomers;
 	}
 	
 	public void addCustomer(Customer customer) {
@@ -299,9 +299,7 @@ public class Teller {
 		}
 	}	
 	
-	
-	
-	
+
 	
 	public int getId() {
 		return id;

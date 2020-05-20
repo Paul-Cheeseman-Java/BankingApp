@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 class TestCurrent {
 
-
 	@Test
 	void testCompareTo() {
 		 ArrayList<Account> ordered = new ArrayList<Account>(Arrays.asList(new Current ("aTest", 0.0), new Current ("bTest", 0.0), new Current ("cTest", 0.0)));

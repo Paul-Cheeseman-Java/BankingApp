@@ -12,9 +12,9 @@ public class BankingApp {
 	
 	public static void main(String[] args) {
 
-		Bank BankOCheese = new Bank("BankOCheese");
-		BankOCheese.addTeller();	//Add an initial teller with id of 1
-		BankOCheese.startApp();
+		Bank bank = Bank.getInstance();
+		bank.addTeller();	//Add an initial teller with id of 1
+		bank.startApp();
 
 	}
 	

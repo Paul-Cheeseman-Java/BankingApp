@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class Bank {
 	
-	private static String name;
-	private static ArrayList<Customer> customers;
-	private static ArrayList<Teller> tellers;	
+	private static Bank bank = new Bank();
+	
+	private static ArrayList<Customer> customers = new ArrayList<Customer>();
+	private static ArrayList<Teller> tellers = new ArrayList<Teller>();	
 	/* HAVE I BEEN CONSISTENT THROUGH ALL CLASSES WITH USE OF this ANNOTATION???? */
 	
-	//Logon screen - Welcome etc, are you a Teller or Customer
-	//Teller and Customer have own menus
-	
-	public Bank(String name) {
-		this.setName(name);
-		this.setCustomers(new ArrayList<Customer>());
-		this.setTellers(new ArrayList<Teller>());
+
+	private Bank() {
+
 	}
 	
-	
+
+   public static Bank getInstance( ) {
+      return bank;
+   }
 	
 	public static String bankStartMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class Bank {
 	}
 
 	public static Customer validCustomer(int custID) {
-		for (Customer customer : Bank.getCustomers()){
+		for (Customer customer : customers){
 			if (customer.getId() == custID) {
 				return customer;
 			}
@@ -57,7 +57,7 @@ public class Bank {
 	}
 	
 	public static Teller validTeller(int tellerID) {
-		for (Teller teller : Bank.getTellers()){
+		for (Teller teller : tellers){
 			if (teller.getId() == tellerID) {
 				return teller;
 			}
@@ -118,7 +118,7 @@ public class Bank {
 	
 	public static Account getAccount(int accountNum) {
 		Account locatedAcc = null;
-		for (Customer customer: Bank.getCustomers()) {
+		for (Customer customer: customers) {
 			if (customer.getAccountNumbers().contains(accountNum)) {
 				locatedAcc = customer.getAccount(accountNum);
 			}
@@ -129,7 +129,7 @@ public class Bank {
 
 	public static Account findAccount(int accountNum) {
 		Account locatedAcc = null;
-		for (Customer customer: Bank.getCustomers()) {
+		for (Customer customer: customers) {
 			if (customer.getAccountNumbers().contains(accountNum)) {
 				locatedAcc = customer.getAccount(accountNum);
 			}
@@ -139,75 +139,26 @@ public class Bank {
 	
 	
 	
-	public void BankMenu() { 
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Are you a Customer or Teller?");
-		System.out.println("1 - Customer");
-		System.out.println("2 - Teller");
-		System.out.println("0 - Exit");
-		char bankMenu = sc.next().toCharArray()[0];
-		while (bankMenu != '0' && bankMenu != '1' && bankMenu != '2'){
-			System.out.println("Are you a Customer or Teller?");
-			System.out.println("1 - Customer");
-			System.out.println("2 - Teller");
-			System.out.println("0 - Exit");
-		}
-		if (bankMenu == '1') {
-			//Customer Menu
-		}
-		else if (bankMenu == '2') {
-			//Teller Menu
-		}
-		else {
-			//Quit application
-		}
-	}
 
 	public static int addTeller() {
-		Teller newTeller = new Teller();
+		Teller newTeller = new Teller(customers);
+		System.out.println("Teller id: " +newTeller.getId());
 		tellers.add(newTeller);
+		System.out.println("Teller id2: " +newTeller.getId());
 		return newTeller.getId();
 	}
 	
-	public void removeTeller(Teller teller) {
+	public static void removeTeller(Teller teller) {
 		tellers.remove(teller);
 	}
 	
-	public void listTellers() {
+	public static void listTellers() {
 		for (Teller teller : tellers) {
 			System.out.println("Teller id: " +teller.getId());			
 		}
 	}
 
 
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		Bank.name = name;
-	}
-
-
-	public static ArrayList<Customer> getCustomers() {
-		return Bank.customers;
-	}
-
-
-	public void setCustomers(ArrayList<Customer> customers) {
-		Bank.customers = customers;
-	}
-
-
-	public static ArrayList<Teller> getTellers() {
-		return tellers;
-	}
-
-
-	public void setTellers(ArrayList<Teller> tellers) {
-		Bank.tellers = tellers;
-	}
 	
 
 
