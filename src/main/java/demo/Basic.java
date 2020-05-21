@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class Basic extends Account {
 
+	
+	public Basic() {
+	}
+	
+	public Basic(String name) {
+		super(name);
+	}
 
 	@Override
 	public void custOpenAccount() { 

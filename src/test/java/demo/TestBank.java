@@ -1,53 +1,46 @@
 package demo;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-
-/*
-//public static Customer validCustomer(int custID) {}
-//public static Teller validTeller(int tellerID) {}
-//public static int getValidInt() {}
-//public static Account getAccount(int accountNum) {}
-//public static Account findAccount(int accountNum) {}	
-//public static int addTeller() {}
- */
-
-
 class TestBank {
-
+	
 	@Test
-	void testAddTeller() {
-		int testTellerID1 = Bank.addTeller();
-		int testTellerID2 = Bank.addTeller();
-		assertEquals(1, testTellerID1);
-		assertEquals(2, testTellerID2);
+	void testValidTellerwithNonValidTeller() {
+		Assert.assertNull(Bank.validTeller(9999));
 	}
 	
-		
+	
 	@Test
-	void testValidTellerwithValidTeller() {
-		assertEquals(1, Bank.validTeller(Bank.addTeller()).getId());
+	void testGetTellerWithNonValidTeller() {
+		Assert.assertNull(Bank.getTeller(9999));
 	}
 	
-		
+	
 	@Test
-	void testValidCustomerwithValidCustomer() {
-		Bank.addTeller();
-		Teller testTeller = Bank.validTeller(1);
-		Customer testCust = new Customer("Test Customer");
-		Customer returnedCust = Bank.validCustomer(1);
-		assertEquals(testCust, returnedCust);
+	void testFindAccountWithValidAccount() {
+		Account testAcc = new Basic("Test Account");
+		Customer testCust = new Customer("Mr Test");
+		//Set up account for customer
+		ArrayList<Account> testAccList = new ArrayList<Account>();
+		testAccList.add(testAcc);
+		testCust.setAccounts(testAccList);
+		//Set up customer for bank
+		ArrayList<Customer> testCustList = new ArrayList<Customer>();
+		testCustList.add(testCust);
+		//Add customer to bank
+		Bank.setCustomers(testCustList);
+		Assert.assertNotNull(Bank.findAccount(testAcc.getAccountNumber()));
 	}
-
+	
+	
+	@Test
+	void testFindAccountWithNonValidAccount() {
+		Assert.assertNull(Bank.findAccount(9999));
+	}
+	
+	
+	
 	
 }

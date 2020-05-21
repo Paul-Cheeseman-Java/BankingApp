@@ -126,6 +126,17 @@ public class Bank {
 		return locatedAcc;
 	}
 
+	
+	public static Teller getTeller(int tellerId) {
+		Teller locatedTel = null;
+		for (Teller tel: tellers) {
+			if (tel.getId() == tellerId) {
+				locatedTel = tel;
+			}
+		}
+		return locatedTel;
+	}
+	
 
 	public static Account findAccount(int accountNum) {
 		Account locatedAcc = null;
@@ -142,9 +153,7 @@ public class Bank {
 
 	public static int addTeller() {
 		Teller newTeller = new Teller(customers);
-		System.out.println("Teller id: " +newTeller.getId());
 		tellers.add(newTeller);
-		System.out.println("Teller id2: " +newTeller.getId());
 		return newTeller.getId();
 	}
 	
@@ -159,7 +168,25 @@ public class Bank {
 	}
 
 
+	public static ArrayList<Customer> getCustomers() {
+		return customers;
+	}
+
+
+	public static void setCustomers(ArrayList<Customer> customers) {
+		Bank.customers = customers;
+	}
+
+
+	public static ArrayList<Teller> getTellers() {
+		return tellers;
+	}
+
+
+	public static void setTellers(ArrayList<Teller> tellers) {
+		Bank.tellers = tellers;
+	}
+
 	
-
-
+	
 }

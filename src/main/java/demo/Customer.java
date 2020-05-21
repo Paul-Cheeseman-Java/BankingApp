@@ -22,9 +22,6 @@ public class Customer {
 	}
 	
 	
-	
-	
-	
 	public void customerLogon() {
 		System.out.println("Welcome " +this.getName() + " (id: " +this.getId() + ")");
 		String choice = Account.actionMenu();
@@ -144,15 +141,6 @@ public class Customer {
 		accounts.add(account);
 	}
 	
-	
-	public boolean haveAccountType(String accountType) {
-		for (Account account : accounts){
-			if (account.getClass().equals(accountType)) {
-				return true;				
-			}
-		}
-		return false;
-	}
 	
 	
 	public Account getAccount(int accountNum) {
