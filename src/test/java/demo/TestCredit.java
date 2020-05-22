@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 class TestCredit {
 
 	@Test
-	void testincreaseCreditLimitFromZero() {
+	void testIncreaseCreditLimitFromZero() {
 		Credit testFunds = new Credit ("testAccount");
 		testFunds.increaseCreditLimit(20.0);
 		assertEquals(testFunds.getCreditLimit(), 20.0);
 	}
 
 	@Test
-	void testincreaseCreditLimitFromNonZero() {
+	void testIncreaseCreditLimitFromNonZero() {
 		Credit testFunds = new Credit ("testAccount", 10.0);
 		testFunds.increaseCreditLimit(20.0);
 		assertEquals(testFunds.getCreditLimit(), 30.0);
@@ -27,7 +27,7 @@ class TestCredit {
 
 	
 	@Test
-	void testincreaseCreditLimitFromZeroAvailableFunds() {
+	void testIncreaseCreditLimitFromZeroAvailableFunds() {
 		Credit testFunds = new Credit ("testAccount");
 		testFunds.increaseCreditLimit(20.0);
 		assertEquals(testFunds.getAvailableFunds(), 20.0);
@@ -35,7 +35,7 @@ class TestCredit {
 
 	
 	@Test
-	void testincreaseCreditLimitFromNonZeroAvailableFunds() {
+	void testIncreaseCreditLimitFromNonZeroAvailableFunds() {
 		Credit testFunds = new Credit ("testAccount", 10.0);
 		testFunds.increaseCreditLimit(20.0);
 		assertEquals(testFunds.getAvailableFunds(), 30.0);
