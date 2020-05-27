@@ -91,7 +91,7 @@ public class Credit extends Account implements Transferable {
 	
 	@Override
 	public void custUpdateAccount() { 
-		String choice = this.tellerUpdateMenu();
+		String choice = this.custUpdateMenu();
 		if (choice.equals("Update Name")) {
 			this.setAccountName(this.promptEnterAccountName());
 		} else if (choice.equals("Add Funds")) {

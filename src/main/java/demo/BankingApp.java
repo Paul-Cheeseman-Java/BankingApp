@@ -1,9 +1,7 @@
 package demo;
 
-import java.util.concurrent.TimeUnit;
 
 public class BankingApp {
-
 	//Should all general msgs be static?
 	//Have I been consistent with 'this'?
 	//Do all comparisons need to be changed to Big Int?
@@ -12,9 +10,8 @@ public class BankingApp {
 	
 	public static void main(String[] args) {
 
-		Bank bank = Bank.getInstance();
-		bank.addTeller();	//Add an initial teller with id of 1
-		bank.startApp();
+		Bank.addTeller();	//Add an initial teller with id of 1
+		Bank.startApp();
 
 	}
 	
