@@ -195,10 +195,10 @@ public abstract class Account implements Comparable<Account> {
 		Scanner sc = new Scanner(System.in);
 		int menuNum = 0;
 		Collections.sort(accountList);
-		System.out.println("Select the account (sorted by account name):");
+		System.out.println("Select the account (Sorted by account name):");
 		for (Account account : accountList) {
 			menuNum += 1;
-			System.out.println(menuNum + " - Account Name: " +account.getAccountName() + " - Account Number: " +Account.getFormattedAccountNumber(account.getAccountNumber()));
+			System.out.println(menuNum + " - Account: " +Account.getFormattedAccountNumber(account.getAccountNumber())+ " called " +account.getAccountName());
 		}
 		System.out.println("0 - Exit");
 		if (sc.hasNextInt()){
@@ -330,7 +330,7 @@ public abstract class Account implements Comparable<Account> {
 	}
 	
 	public String accountNotClosedMsg() {
-		return "Unable to close the " + this.getClass().getSimpleName() + " account " + this.getAccountName() + " because the balance is not 0";
+		return "Unable to close the " + this.getClass().getSimpleName() + " account " + this.getAccountName() + " because the balance is not zero";
 	}
 	
 	

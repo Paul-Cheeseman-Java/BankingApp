@@ -43,7 +43,7 @@ public class Current extends Account implements Transferable {
 				System.out.println("Enter the amount of the payment you'd like to make");
 				this.transferCreditTo(transferable, this.getValidAmount());			
 			} else {
-				System.out.println("You cannot transfer money to this account type");
+				System.out.println("You cannot transfer money to that account type");
 			}
 		}
 		else {
@@ -96,7 +96,7 @@ public class Current extends Account implements Transferable {
 	
 	@Override
 	public void custUpdateAccount() { 
-		String choice = this.tellerUpdateMenu();
+		String choice = this.custUpdateMenu();
 		if (choice.equals("Update Name")) {
 			this.setAccountName(this.promptEnterAccountName());
 		} else if (choice.equals("Add Funds")) {
@@ -285,11 +285,11 @@ public class Current extends Account implements Transferable {
 	}
 	
 	private String getReducedOverdraftMsg() {
-		return "Your overdraft for your " +getAccountName()+ " current account has been reduced to " +getOverdraft();
+		return "Your overdraft for your " +getAccountName()+ " current account has been reduced to £" +getOverdraft();
 	}
 	
 	private String getIncreasedOverdraftMsg() {
-		return "Your overdraft for your " +getAccountName()+ " current account has been increased to " +getOverdraft();
+		return "Your overdraft for your " +getAccountName()+ " current account has been increased to £" +getOverdraft();
 	}
 	
 	private String getFailedReductionOverdraftMsg() {
