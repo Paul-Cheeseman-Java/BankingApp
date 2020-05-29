@@ -18,7 +18,7 @@ public class Teller {
 	
 	public void addCustomer(Customer customer) {
 		this.customers.add(customer);
-		System.out.println("A customer with an id of: " + customer.getId() + " has been created");
+		System.out.println("Customer " +customer.getName() + " with an id of: " + customer.getId() + " has been created");
 	}
 	
 	public void removeCustomer() {
@@ -27,7 +27,7 @@ public class Teller {
 			this.customers.remove(customer);
 			System.out.println("Customer removed");
 		} else {
-			System.out.println("The customer still has accounts open, cannot be removed");
+			System.out.println("The customer still has accounts open so cannot be removed");
 		}
 	}
 
@@ -66,7 +66,9 @@ public class Teller {
 
 	
 	public void tellerLogon() {
-		System.out.println("Welcome Teller (id: " +this.getId() + ")");
+		System.out.println("---------------");
+		System.out.println("Teller (id: " +this.getId() + ")");
+		System.out.println("---------------");
 		String choice = Teller.tellerLoginMenu();
 		if (choice.equals("Customer Details")) {
 			this.tellerCustomerManagementMenu();

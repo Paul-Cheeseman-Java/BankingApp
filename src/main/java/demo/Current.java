@@ -196,6 +196,8 @@ public class Current extends Account implements Transferable {
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
+		System.out.println("");
+		System.out.println("");
 	}
 	
 	

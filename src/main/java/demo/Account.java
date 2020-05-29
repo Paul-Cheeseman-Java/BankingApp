@@ -162,17 +162,13 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("2 - Current account");
 		System.out.println("3 - Credit account");
 		System.out.println("4 - Saving account");
-
-		System.out.println("E - Exit");
 		char whichAccountMenu = sc.next().toCharArray()[0];
-		while (whichAccountMenu != '1' && whichAccountMenu != '2' && whichAccountMenu != '3' && 
-				whichAccountMenu != '4' && whichAccountMenu != 'E' && whichAccountMenu != 'e'){
+		while (whichAccountMenu != '1' && whichAccountMenu != '2' && whichAccountMenu != '3' &&	whichAccountMenu != '4'){
 			System.out.println("Please setect a valid option:");
 			System.out.println("1 - Basic account");
 			System.out.println("2 - Current account");
 			System.out.println("3 - Credit account");
 			System.out.println("4 - Saving account");
-			System.out.println("E - Exit");
 			whichAccountMenu = sc.next().toCharArray()[0];
 		}
 		String accType = "";
@@ -207,9 +203,7 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("0 - Exit");
 		if (sc.hasNextInt()){
 			int input = sc.nextInt();
-			//System.out.println("Value: " + input);
 			if(input <= menuNum && input > 0) {
-				System.out.println("Selected Account: " + accountList.get((input-1)).getAccountNumber());
 				return accountList.get((input-1));
 			}
 			else if (input == 0) {
@@ -461,6 +455,8 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
+		System.out.println("");
+		System.out.println("");
 	}
 
 	

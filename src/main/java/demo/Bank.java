@@ -30,11 +30,11 @@ public class Bank {
 		System.out.println("2 - Teller sign in");
 		char bankMenu = sc.next().toCharArray()[0];
 		while (bankMenu != '1' && bankMenu != '2' && bankMenu != '3' && bankMenu != '0'){
-			System.out.println("******************************");
-			System.out.println("Please select a valid option:");
-			System.out.println("******************************");
-			System.out.println("1 - Customer sign in");
-			System.out.println("2 - Teller sign in");
+			System.out.println("***************");
+			System.out.println("Please Sign In:");
+			System.out.println("***************");
+			System.out.println("1 - Customer");
+			System.out.println("2 - Teller");
 			bankMenu = sc.next().toCharArray()[0];
 		}
 		String bankUser = "";

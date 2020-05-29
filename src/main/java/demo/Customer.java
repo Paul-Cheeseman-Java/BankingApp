@@ -23,7 +23,9 @@ public class Customer {
 	
 	
 	public void customerLogon() {
-		System.out.println("Welcome " +this.getName() + " (id: " +this.getId() + ")");
+		System.out.println("--------------------------");
+		System.out.println("Customer: " +this.getName() + " (id: " +this.getId() + ")");
+		System.out.println("--------------------------");
 		String choice = Account.actionMenu();
 		if (choice.equals("Open")) {
 			this.openAccount();

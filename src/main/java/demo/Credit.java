@@ -237,6 +237,9 @@ public class Credit extends Account implements Transferable {
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Crd Avail |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
+		System.out.println("---------------------------------------------------------------|");
+		System.out.println("");
+		System.out.println("");
 	}
 	
 	public boolean isCloseable() {
