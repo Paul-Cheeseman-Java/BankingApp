@@ -22,9 +22,9 @@ public class Bank {
 	
 	public static String bankStartMenu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("******************************");
-		System.out.println("* Welcome to Bank'o Wonder'o *");
-		System.out.println("******************************");
+		System.out.println("************************");
+		System.out.println("* Welcome to Demo Bank *");
+		System.out.println("************************");
 		System.out.println("1 - Customer sign in");
 		System.out.println("2 - Teller sign in");
 		char bankMenu = sc.next().toCharArray()[0];
