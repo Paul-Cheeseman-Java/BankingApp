@@ -1,6 +1,5 @@
 package demo;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Current extends Account implements Transferable {
@@ -53,9 +52,6 @@ public class Current extends Account implements Transferable {
 	}
 	
 	
-	
-	
-
 	@Override
 	public String custUpdateMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -91,6 +87,7 @@ public class Current extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	
@@ -160,6 +157,7 @@ public class Current extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	

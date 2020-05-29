@@ -9,7 +9,6 @@ public class Bank {
 	
 	private static ArrayList<Customer> customers = new ArrayList<Customer>();
 	private static ArrayList<Teller> tellers = new ArrayList<Teller>();	
-	/* HAVE I BEEN CONSISTENT THROUGH ALL CLASSES WITH USE OF this ANNOTATION???? */
 	
 
 	private Bank() {
@@ -44,6 +43,7 @@ public class Bank {
 		else if (bankMenu == '2') {
 			bankUser = "Teller";
 		}
+		sc.close();
 		return bankUser;
 	}
 
@@ -83,6 +83,7 @@ public class Bank {
 				System.out.println("Please enter a positive number!");
 			}
 		}
+		sc.close();
 		return validInt;
 	}
 	

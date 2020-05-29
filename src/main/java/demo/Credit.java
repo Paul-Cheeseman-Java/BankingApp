@@ -1,7 +1,6 @@
 package demo;
 
 import java.math.BigDecimal;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Credit extends Account implements Transferable {
@@ -86,6 +85,7 @@ public class Credit extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	
@@ -157,6 +157,7 @@ public class Credit extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	

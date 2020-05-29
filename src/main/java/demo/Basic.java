@@ -48,6 +48,7 @@ public class Basic extends Account {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	
@@ -100,6 +101,7 @@ public class Basic extends Account {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
+		sc.close();
 		return actType;
 	}
 	
