@@ -187,15 +187,16 @@ public class Current extends Account implements Transferable {
 	@Override
 	public void getStatement(){
 		System.out.println("");
-		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("     Statement for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
 		System.out.println("              Account Type: " +this.getClass().getSimpleName());
 		System.out.println("Customer Account Reference: " +this.getAccountName());
-		System.out.println("---------------------------------------------------------------|");
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("         Current Overdraft: " +	Current.overdraftLineFormat(this.getOverdraft()) +"                            |");           
 		System.out.println("---------------------------------------------------------------|");
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		System.out.println("");
 	}
@@ -280,7 +281,7 @@ public class Current extends Account implements Transferable {
 
 	
 	private String getInOverdraftMsg() {
-		return "You are now in your overdraft on your " +getAccountName()+ " current account with overdraft credit of £ " + getAvailableFunds() + " remaining";
+		return "You are now in your overdraft on your " +getAccountName()+ " current account with overdraft credit of £" + getAvailableFunds() + " remaining";
 	}
 	
 	private String getReducedOverdraftMsg() {

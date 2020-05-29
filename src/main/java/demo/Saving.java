@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Saving extends Account {
 
-	private static double dailyDepositLimit = 50.0;
-	private static double dailyWithdrawalLimit = 50.0;
+	private static double dailyDepositLimit = 40.0;
+	private static double dailyWithdrawalLimit = 40.0;
 	
 	private LocalDate lastTxnDate = LocalDate.now();
 	private double dailyDepositTotal;

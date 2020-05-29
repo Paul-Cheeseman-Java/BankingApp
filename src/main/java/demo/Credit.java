@@ -228,16 +228,16 @@ public class Credit extends Account implements Transferable {
 	@Override
 	public void getStatement(){
 		System.out.println("");
-		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("     Statement for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
 		System.out.println("              Account Type: " +this.getClass().getSimpleName());
 		System.out.println("Customer Account Reference: " +this.getAccountName());
-		System.out.println("---------------------------------------------------------------|");
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("              Credit Limit: " +Credit.creditLineFormat(this.getCreditLimit()) +"                            |");           
 		System.out.println("---------------------------------------------------------------|");
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Crd Avail |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
-		System.out.println("---------------------------------------------------------------|");
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		System.out.println("");
 	}

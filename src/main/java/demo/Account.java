@@ -195,10 +195,10 @@ public abstract class Account implements Comparable<Account> {
 		Scanner sc = new Scanner(System.in);
 		int menuNum = 0;
 		Collections.sort(accountList);
-		System.out.println("Select the account:");
+		System.out.println("Select the account (sorted by account name):");
 		for (Account account : accountList) {
 			menuNum += 1;
-			System.out.println(menuNum + " - Account Number: " +Account.getFormattedAccountNumber(account.getAccountNumber()) + " - Account name: " +account.getAccountName());
+			System.out.println(menuNum + " - Account Name: " +account.getAccountName() + " - Account Number: " +Account.getFormattedAccountNumber(account.getAccountNumber()));
 		}
 		System.out.println("0 - Exit");
 		if (sc.hasNextInt()){
@@ -417,11 +417,11 @@ public abstract class Account implements Comparable<Account> {
 	} 
 
 	public String getDebitMadeMsg(double amount) {
-		return "You have removed  £" +amount+ " from account" +name;
+		return "You have removed  £" +amount+ " from account " +name;
 	}
 	
 	public String getCreditMadeMsg(double amount) {
-		return "You have added £" +amount+ " to account" +name;
+		return "You have added £" +amount+ " to account " +name;
 	}
 	
 	public void setTransactions(ArrayList<Txn> txns){
@@ -448,13 +448,14 @@ public abstract class Account implements Comparable<Account> {
 	
 	public void getStatement(){
 		System.out.println("");
-		System.out.println("  Transactions for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
+		System.out.println("     Statement for Account: " + Account.getFormattedAccountNumber(this.getAccountNumber()));
 		System.out.println("              Account Type: " +this.getClass().getSimpleName());
 		System.out.println("Customer Account Reference: " +this.getAccountName());
-		System.out.println("---------------------------------------------------------------|");
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("   Date    |     Time   |    Type   |    Amount   |  Balance   |");
 		System.out.println("---------------------------------------------------------------|");
 		this.listTransactions();
+		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		System.out.println("");
 	}
