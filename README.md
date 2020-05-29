@@ -25,7 +25,6 @@ All customer accounts must be closed before a customer can be removed from the b
 
 
 **Account Types**
-
 _Basic_ - An account into which a customer can deposit money and remove money.
 
 _Current_ - As per Basic but with an overdraft facility. A customer can open a current account but a teller needs to set/agree overdraft (which can only be reduced when the customer has appropriate funds). Money can be transfered between other accounts of this type and also with Credit accounts.
@@ -35,7 +34,6 @@ _Credit_ - An account which enables the customer to use credit to a level set/ma
 _Saving_ - An account into which a customer can add/remove up to a limit of £40 a day (withdrawls being dependent on available funds). This account type allows money transfers. 
 
 **Account Functionality**
-
 When listed, accounts are sorted by name rather than by account number to make it easier for a customer to find.
 
 Each of the account types log transactions and can produce a statement which is tailored to give details specific to that account type. The transactions on each statement are sorted so that the most recent transactions is at the to of the statement. 
