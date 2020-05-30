@@ -87,7 +87,6 @@ public class Current extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	
@@ -157,7 +156,6 @@ public class Current extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	

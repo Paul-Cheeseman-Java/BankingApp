@@ -84,7 +84,6 @@ public abstract class Account implements Comparable<Account> {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	
@@ -118,7 +117,6 @@ public abstract class Account implements Comparable<Account> {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 
@@ -152,7 +150,6 @@ public abstract class Account implements Comparable<Account> {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 
@@ -185,7 +182,6 @@ public abstract class Account implements Comparable<Account> {
 		else if (whichAccountMenu == '4') {
 			accType = "Saving";
 		}
-		sc.close();
 		return accType;
 	}
 	
@@ -206,17 +202,14 @@ public abstract class Account implements Comparable<Account> {
 		if (sc.hasNextInt()){
 			int input = sc.nextInt();
 			if(input <= menuNum && input > 0) {
-				sc.close();
 				return accountList.get((input-1));
 			}
 			else if (input == 0) {
-				sc.close();
 				return null;			
 			}
 		}
 		Account.selectAccountMenu(accountList);
 		//Irrelevant return statement
-		sc.close();
 		return null;
 	}
 
@@ -243,7 +236,6 @@ public abstract class Account implements Comparable<Account> {
 		while (!this.validAccountName(accName)){
 			accName = this.promptEnterAccountName();
 		}
-		sc.close();
 		return accName;
 	}
 	
@@ -252,7 +244,6 @@ public abstract class Account implements Comparable<Account> {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter amount of funds to be added");
 		double addVal = this.getValidAmount();
-		sc.close();
 		this.addFunds(addVal);
 	}
 	
@@ -262,7 +253,6 @@ public abstract class Account implements Comparable<Account> {
 		System.out.println("Enter amount of funds to be removed");
 		double addVal = this.getValidAmount();
 		this.removeFunds(addVal);
-		sc.close();
 	}
 	
 	
@@ -284,7 +274,6 @@ public abstract class Account implements Comparable<Account> {
 				System.out.println("Please enter a positive number!");
 			}
 		}
-		sc.close();
 		return validAmount;
 	}
 	
@@ -306,7 +295,6 @@ public abstract class Account implements Comparable<Account> {
 				System.out.println("Please enter a positive number!");
 			}
 		}
-		sc.close();
 		return validInt;
 	}
 	

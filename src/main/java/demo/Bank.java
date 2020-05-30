@@ -43,7 +43,6 @@ public class Bank {
 		else if (bankMenu == '2') {
 			bankUser = "Teller";
 		}
-		sc.close();
 		return bankUser;
 	}
 
@@ -83,7 +82,6 @@ public class Bank {
 				System.out.println("Please enter a positive number!");
 			}
 		}
-		sc.close();
 		return validInt;
 	}
 	

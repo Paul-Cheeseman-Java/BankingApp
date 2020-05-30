@@ -85,7 +85,6 @@ public class Credit extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	
@@ -157,7 +156,6 @@ public class Credit extends Account implements Transferable {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	

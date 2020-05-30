@@ -64,7 +64,6 @@ public class Saving extends Account {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	
@@ -118,7 +117,6 @@ public class Saving extends Account {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	

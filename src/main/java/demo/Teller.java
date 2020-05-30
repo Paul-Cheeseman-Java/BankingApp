@@ -61,7 +61,6 @@ public class Teller {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 
@@ -130,7 +129,6 @@ public class Teller {
 		else if (actionMenu == '0') {
 			actType = "Exit";
 		}
-		sc.close();
 		return actType;
 	}
 	
@@ -170,7 +168,6 @@ public class Teller {
 		while (!this.validCustomerName(custName)){
 			custName = this.promptEnterCustomerName();
 		}
-		sc.close();
 		return custName;
 	}
 	
@@ -200,7 +197,6 @@ public class Teller {
 	        sc.next();
 	    }
 		int returnVal = sc.nextInt();
-		sc.close();
 	    return returnVal;
 	}
 
