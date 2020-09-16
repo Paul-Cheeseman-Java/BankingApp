@@ -1,5 +1,5 @@
 ## General info
-This project is a small Java banking application to help me understand/practice/implement some of the fundamentals of OOP and is also an opportunity for me to use JUnit for unit testing.
+This project is a small console based Java banking application to help me understand/practice/implement some of the fundamentals of OOP and was also an opportunity for me to use JUnit for unit testing.
 
 The code uses uses poloymorphism through inheritence (producing different actions depending on the accounts class) and uses an interface to enable a couple of the existing account types (and any future ones) to transfer money between themselves. Numerous unit tests for each class have been delveloped in JUnit.
 
@@ -23,7 +23,6 @@ The bank to start with a customer (who has no accounts) and a teller, both of wh
 All customer accounts must be closed before a customer can be removed from the bank.
 
 
-
 **Account Types**  
 _Basic_ - An account into which a customer can deposit money and remove money.
 
@@ -31,14 +30,14 @@ _Current_ - As per Basic but with an overdraft facility. A customer can open a c
 
 _Credit_ - An account which enables the customer to use credit to a level set/managed by a teller. A customer can open/name the account but cannot use it until a credit limit set/agreed by a teller. Money can be transfered between other accounts of this type and also with Current accounts.
 
-_Saving_ - An account into which a customer can add/remove up to a limit of £40 a day (withdrawls being dependent on available funds). This account type allows money transfers. 
+_Saving_ - An account into which a customer can add/remove up to a limit of £40 a day (withdrawls being dependent on available funds).  
 
 **Account Functionality**  
 When listed, accounts are sorted by name rather than by account number to make it easier for a customer to find.
 
 Each of the account types log transactions and can produce a statement which is tailored to give details specific to that account type. The transactions on each statement are sorted so that the most recent transactions is at the to of the statement. 
 
-Account types which allow money transfers allow them between a customers own accounts and between different customer accounts.
+Account types which allow money transfers allow them between a customers own accounts also and other customers of the bank.
 
 An account must have a zero balance before it can be closed.
 
